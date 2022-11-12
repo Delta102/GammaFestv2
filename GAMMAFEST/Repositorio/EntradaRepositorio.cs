@@ -1,7 +1,8 @@
 ﻿using GAMMAFEST.Data;
 using GAMMAFEST.Models;
-using Microsoft.CodeAnalysis.FlowAnalysis.DataFlow;
+using IronBarCode;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 
 namespace GAMMAFEST.Repositorio
 {
@@ -12,6 +13,7 @@ namespace GAMMAFEST.Repositorio
         IEnumerable<Entrada> HistorialCantidad(int id, int idCant);
         int ConteoEntrada();
         int ConteoEntradaByEventoId(int id);
+        void generarQR(Entrada entrada, string nom, string user, string webPath);
     }
     public class EntradaRepositorio: IEntradaRepositorio
     {
@@ -50,6 +52,31 @@ namespace GAMMAFEST.Repositorio
         {
             IEnumerable<Entrada> lista = _context.Entrada.Include(e => e.Evento).Where(e => e.IdUser == id).Where(u=>u.IdCantidad == idCant);
             return lista;
+        }
+
+        public void generarQR(Entrada entrada, string nombreEvento, string userName, string webPath)
+        {
+            try
+            {
+
+                var txtQR = "# de Ticket: " + entrada.EntradaId + "\nNombre de Evento: " + nombreEvento + "\nUsuario: " + userName;
+
+                var logoPath = Path.Combine(webPath, "image\\");
+
+                var qr = QRCodeWriter.CreateQrCodeWithLogo(txtQR, logoPath + "logo_black_qrLogo.jpg");
+
+                string path = Path.Combine(webPath, "GeneratedQRCode");
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+                string filePath = Path.Combine(webPath, "GeneratedQRCode/qrcodev2" + entrada.EntradaId + ".png");
+                qr.SaveAsPng(filePath);
+            }
+            catch (Exception)
+            {
+                throw new InvalidOperationException("No se creó el QR");
+            }
         }
     }
 }

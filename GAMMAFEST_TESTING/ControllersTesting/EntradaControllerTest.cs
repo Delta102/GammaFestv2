@@ -6,10 +6,12 @@ using GAMMAFEST.Repositorio;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +20,8 @@ namespace GAMMAFEST_TESTING.ControllersTesting
     public class EntradaControllerTest
     {
         EntradaController controller;
+
+        IWebHostEnvironment hostEnvironment;
 
         EventoRepositorio eventoRepositorio;
         PromotorRepositorio promotorRepositorio;
@@ -240,13 +244,6 @@ namespace GAMMAFEST_TESTING.ControllersTesting
 
         }
 
-        [Test] 
-        public void QRTest() {
-            var texto="Nombres: Felix\n Apellidos: Peralta Evento: 1 Nombre del Evento: TestEvento";
-            var result = controller.Qr(texto, 1)as ViewResult;
-            Assert.Equals(result.StatusCode, 200);
-        }
-
         [Test]
         public void HistorialController() {
             var result = controller.HistorialEntrada(1);
@@ -306,5 +303,25 @@ namespace GAMMAFEST_TESTING.ControllersTesting
             var result = entradaRepositorio.EntradaconNombreEvento(2);
             Assert.That(result[0].Evento.NombreEvento, Is.EqualTo("TestEvento2"));
         }
+
+        /*[Test]
+        public void QRTest()
+        {
+            var texto = "Nombres: Felix\n Apellidos: Peralta Evento: 1 Nombre del Evento: TestEvento";
+
+            var entradaTemp = new Entrada
+            {
+                PrecioTotal = 45,
+                TextoQR = texto,
+                EventoId = 1,
+                IdUser = 1,
+                CantidadEntradas = 5,
+                IdCantidad = 1
+            };
+
+            var mock = new Mock<IEntradaRepositorio>();
+            mock.Setup(x=>x.generarQR(It.IsAny<Entrada>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Throws<InvalidOperationException("No se creó el QR")>;
+            mock.Verify(x=>x.generarQR(It.IsAny<Entrada>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
+        }*/
     }
 }

@@ -21,6 +21,9 @@ namespace GAMMAFEST.Controllers
         public IEventoRepositorio eventoRepositorio;
         public IEntradaRepositorio repositorioEntrada;
         public IPromotorRepositorio repositorio;
+
+        
+
         private readonly IWebHostEnvironment _hostEnvironment;
 
         public EntradaController(IPromotorRepositorio repositorio, IEntradaRepositorio repositorioEntrada, IWebHostEnvironment webHostEnvironment, IEventoRepositorio eventoRepositorio)
@@ -93,7 +96,10 @@ namespace GAMMAFEST.Controllers
                         IdCantidad = entrada.EntradaId
                     };
                     repositorioEntrada.CrearEntrada(entradaTemp);
-                    generarQR(entradaTemp);
+
+                    var webPath = _hostEnvironment.WebRootPath;
+
+                    repositorioEntrada.generarQR(entradaTemp, evento.NombreEvento, user.Nombre, webPath.ToString());
                 }
                 //CORREGIR SISTEMA DE ENTRADAS
                 //repositorioEntrada.CrearEntrada(entrada, entrada.CantidadEntradas);
@@ -101,26 +107,6 @@ namespace GAMMAFEST.Controllers
             }
             else
                 return View(entrada);
-        }
-
-        private void generarQR(Entrada entrada) {
-            var nom = eventoRepositorio.ObtenerSoloEvento(entrada.EventoId).NombreEvento;
-            var user = repositorio.ObtenerUserById(entrada.IdUser).Nombre;
-
-            var txtQR = "# de Ticket: " + entrada.EntradaId + "\nNombre de Evento: " + nom + "\nUsuario: " + user;
-
-            var logoPath = Path.Combine(_hostEnvironment.WebRootPath, "image\\");
-
-            var qr = QRCodeWriter.CreateQrCodeWithLogo(txtQR, logoPath+"logo_black_qrLogo.jpg");
-            
-            string path = Path.Combine(_hostEnvironment.WebRootPath, "GeneratedQRCode");
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-            string filePath = Path.Combine(_hostEnvironment.WebRootPath, "GeneratedQRCode/qrcodev2" + entrada.EntradaId + ".png");
-            qr.SaveAsPng(filePath);
-
         }
 
         public IActionResult SoldOut()

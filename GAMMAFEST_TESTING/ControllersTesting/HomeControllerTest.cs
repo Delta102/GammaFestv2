@@ -136,11 +136,12 @@ namespace GAMMAFEST_TESTING.ControllersTesting
 
             homeController = new HomeController(eventoRepositorio, promotorRepositorio);
         }
+        /*
         [Test]
         public void IndexTest() {
             var result = homeController.Index();
             Assert.IsNotNull(result);
-        }
+        }*/
 
         [Test]
         public void PrivacyTest()
