@@ -75,7 +75,7 @@ namespace GAMMAFEST.Repositorio
             }
             catch (Exception)
             {
-                throw new InvalidOperationException("No se creó el QR");
+                throw;
             }
         }
     }
