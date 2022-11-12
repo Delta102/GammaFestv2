@@ -1,0 +1,122 @@
+﻿@model GAMMAFEST.Models.UserPromotor
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Register</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--===============================================================================================-->
+	<!--<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/css/dist/css/bootstrap.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/fonts/font-awesome-4.7.0/css/font-awesome.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/vendor/animate/animate.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/vendor/css-hamburgers/hamburgers.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/vendor/select2/select2.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
+	<!--===============================================================================================-->
+</head>
+<body>
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-pic js-tilt" data-tilt>
+					<img src="/image/logo_black.png" alt="IMG">
+
+					@if (ViewData["MENSAJE"] != null)
+					{
+						<br>
+						<br>
+						@if (ViewData["MENSAJE"] == "Usuario registrado con exito")
+						{
+							<div class="alert alert alert-Success alert-dismissible fade show" role="alert">
+								@ViewData["MENSAJE"]
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						}
+						else {
+							<div class="alert alert alert-danger alert-dismissible fade show" role="alert">
+								@ViewData["MENSAJE"]
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+						}
+					}
+				</div>
+
+				<form class="login100-form validate-form" id="account" method="post">
+					<span class="login100-form-title">
+						GAMMA-FEST
+					</span>
+
+					<span class="login100-form-title">
+						Creación de cuenta
+					</span>
+
+					<div class="wrap-input100 validate-input">
+						<input name="nombre" class="input100" autocomplete="username" aria-required="true" placeholder="Nombres" style="position: relative;
+  right: -1.5em;" />
+						<span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input">
+						<input name="apellidos" class="input100" autocomplete="username" aria-required="true" placeholder="Apellidos:" style="position: relative;
+  right: -1.5em;" />
+						<span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
+
+					<div class="wrap-input100 validate-input">
+						<input name="email" class="input100" aria-required="true" placeholder="Correo Electrónico:" style="position: relative;
+  right: -1.5em;" />
+						<span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
+
+
+					<div class="wrap-input100 validate-input">
+						<input name="password" class="input100" aria-required="true" placeholder="Password" required="" style="position: relative;
+  right: -1.5em;"/>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+					<div class="form-group form-row mt-2">
+                        <label>Tipo de usuario</label>
+                        <div class="col-md-10 pt-1">
+                            <div class="form-check form-check-inline"> <input class="form-check-input" type="radio" name="tipo" id="inlineRadio1" value="USUARIO" required> <label class="form-check-label" for="inlineRadio1">USUARIO</label> </div>
+                            <div class="form-check form-check-inline"> <input class="form-check-input" type="radio" name="tipo" id="inlineRadio2" value="ADMIN" required> <label class="form-check-label" for="inlineRadio2">ADMIN</label> </div>
+                        </div>
+                    </div>
+
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" id="registerSubmit" type="submit">
+							Registrar Datos
+						</button>
+						<br><br><br>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

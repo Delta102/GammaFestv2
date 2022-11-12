@@ -1,0 +1,188 @@
+﻿@model GAMMAFEST.Models.Evento
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+	ViewData["Title"] = "IndexEvento";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login V1</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<!--<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/css/dist/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/fonts/font-awesome-4.7.0/css/font-awesome.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="~/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-pic js-tilt" data-tilt>
+					<img src="@Url.Content("~/image/"+Model.NombreImagen)" alt="IMG">
+					<span class="login100-form-title">
+						@Model.NombreEvento.ToUpper()
+					</span>
+
+					<div class="accordion" id="accordionExample">
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="headingOne">
+								<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+									<strong>
+										<em>Protocolos de Seguridad para este Evento</em>
+									</strong>
+								</button>
+							</h2>
+							<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+								<div class="accordion-body">
+									<strong>El evento cumple con los siguientes protocolos</strong>
+									<ul>
+										<li type="circle">@Model.Protocolos</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="headingTwo">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+									<strong>
+										<em>Ubicación y Fecha del Evento</em>
+									</strong>
+								</button>
+							</h2>
+							<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+								<div class="accordion-body">
+									<strong>Ubicación</strong>
+									<ul>
+										<li>Ubicación Ejemplo</li>
+									</ul>
+									<strong>Fecha de Inicio</strong>
+									<ul>
+										<li>Día: @Model.FechaInicioEvento.ToString("d")</li>
+										<li>Hora: @Model.FechaInicioEvento.ToString("H : m")</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="headingThree">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+										<strong>
+											<em>Organizador</em>
+										</strong>
+								</button>
+							</h2>
+							<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+								<div class="accordion-body">
+									<strong>Detalles del Promotor</strong>
+										<ul>
+											<li><strong>Nombres:</strong> @Model.UserPromotor.Nombre</li>
+											<li><strong>Apellidos:</strong> @Model.UserPromotor.Apellido</li>
+										</ul>
+										<strong>Contacto</strong>
+										<ul>
+											<li><strong>Teléfono:</strong>943573485</li>
+											<li><strong>Correo Electrónico:</strong>@Model.UserPromotor.Email</li>
+										</ul>
+								</div>
+							</div>
+						</div>
+
+						<div class="accordion-item">
+							<h2 class="accordion-header" id="headingTree">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTree" aria-expanded="false" aria-controls="collapseTree">
+									<strong>
+										<em>Disponibilidad, Estado y Precio del Evento</em>
+									</strong>
+								</button>
+							</h2>
+							<div id="collapseTree" class="accordion-collapse collapse" aria-labelledby="headingTree" data-bs-parent="#accordionExample">
+								<div class="accordion-body">
+									<strong>Disponibilidad</strong>
+									<ul>
+										<li>Aforo Disponible: @Model.AforoMaximo</li>
+									</ul>
+									<strong>Estado del Evento</strong>
+									<ul>
+										<li>Estado: Terminado (Ejemplo)</li>
+									</ul>
+									<strong>Precio de la entrada</strong>
+									<ul>
+										<li>@Model.PrecioEntradaUnit</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				
+				<form class="login100-form validate-form" id="account" method="post">
+					<div class="login100-pic js-tilt" data-tilt>
+							<span class="login100-form-title">
+								GAMMA-FEST
+							</span>
+
+							<span class="login100-form-title">
+								Detalles del Evento
+							</span>
+						@Model.Descripcion
+						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut asd
+					</div>
+					<br>
+						@{
+							var par = new Dictionary<string, string> {
+								{"idEvento", Model.EventoId.ToString()},
+								{"idUser", ViewBag.idtemp}
+							};
+						}
+
+						<div class="container-login100-form-btn">
+							<button class="login100-form-btn" id="venta" type="submit">
+								<a class="login100-form-btn" asp-controller="Entrada" asp-action="VentaEntrada" asp-all-route-data="par">
+									Asistir a este evento
+								</a>
+							</button>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<button class="login100-form-btn" id="regresar" type="submit">
+								<a class="login100-form-btn" asp-controller="Home" asp-action="Index">
+									Regresar
+								</a>
+							</button>
+						</div>
+
+						@if (SignInManager.IsSignedIn(User))
+						{
+							<div class="container-login100-form-btn">
+								<button class="login100-form-btn" id="listado" type="submit">
+									<a class="login100-form-btn" asp-controller="Usuario" asp-action="IndexUsuario" asp-route-Id="@Model.EventoId">
+										Lista de Asistentes:
+									</a>
+								</button>
+							</div>
+						}
+				</form>
+			</div>
+		</div>
+	</div>
+	}
+</body>
+</html>

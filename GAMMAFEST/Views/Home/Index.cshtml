@@ -1,0 +1,217 @@
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@model IEnumerable<GAMMAFEST.Models.Evento>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAMMAFEST-INICIO</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+
+    <link href="~/css/Style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+</head>
+
+<body>
+    <div>
+        <header>
+            <nav class="navbar navbar-dark bg-dark">
+                <div class="container nav__container">
+                    <a class="navbar-brand" href="#">
+                        &nbsp&nbsp&nbsp&nbsp&nbsp<img src="/image/logo_white_header.png" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
+                        &nbsp<img src="/image/logo_white_text.png" alt="Logo" width="200" height="45" class="d-inline-block align-text-top">
+                    </a>
+
+                    <form class="d-flex">
+                        @if (!Context.User.Identity.IsAuthenticated)
+                        {
+                            <a class="dropdown-item" id="register" asp-controller="Promotor" asp-action="RegistroPromotor" style="color: white;">Registro de promotor&nbsp/</a>
+                            <a class="dropdown-item" id="login" asp-controller="Promotor" asp-action="Login" style="color: white;">&nbspInicio de Sesión</a>
+                        }
+                        @if (Context.User.Identity.IsAuthenticated)
+                        {
+                            <ol class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <span class="navbar-toggler-icon"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Inicio</a></li>
+                                    @if (ViewBag.estado == "USUARIO")
+                                    {
+                                        <li><a id="create_event" class="dropdown-item" asp-route-Id=@ViewBag.perfil asp-controller="Entrada" asp-action="HistorialEntrada">Historial de Pedidos</a></li>
+                                    }
+                                    @if (ViewBag.estado == "ADMIN")
+                                    {
+                                        <li><a id="create_event" class="dropdown-item" asp-route-Id=@ViewBag.perfil asp-controller="Evento" asp-action="CrearEvento">Administrar Eventos</a></li>
+                                    }
+                                    
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" asp-controller="Promotor" asp-action="LogOut" id="logout" type="submit">Cerrar Sesión</a></li>
+                                </ul>
+                            </ol>
+
+                            <ol><p class="dropdown-item" style="color: white;">Bienvenido
+                                    <a asp-controller="Promotor" asp-action="Init" style="color: white;">@Context.User.Identity.Name!</a>
+                                </p>
+                            </ol>
+                        }
+                    </form>
+                </div>
+            </nav>
+        </header>
+
+        <main class="container-sm" style="background-color: white">
+            <section style="margin-top: 32px; max-height: 90vh; object-fit: cover">
+                <!-- Primera Seccion -->
+                <div id="carouselExampleInterval" class="carousel slide; container-md" data-bs-ride="carousel">
+                    <div class="carousel-inner img">
+                        <div class="carousel-item active" data-bs-interval="1000">
+                            <img style="width:50%" src="https://img.freepik.com/fotos-premium/operador-camara-video-trabajando-su-equipo-evento-interior_44344-333.jpg?w=1060"
+                                 class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item" data-bs-interval="2000">
+                            <img style="width:50%" src="https://img.freepik.com/foto-gratis/salon-banquetes-decorado-mesa-redonda-servida-centro-mesa-hortensias-sillas-chiavari_8353-10059.jpg?w=996&t=st=1662586503~exp=1662587103~hmac=370e6bd8eb5009deede78fe2c488dcb326d8bc36f4ea119076470c47a9173916"
+                                 class="d-block w-100" alt="...">
+                        </div>
+                        <div class="carousel-item">
+                            <img style="width:50%" src="https://img.freepik.com/fotos-premium/gente-feliz-baila-concierto-fiesta-discoteca_31965-6829.jpg?w=1060"
+                                class="d-block w-100" alt="...">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+                            data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+                            data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </section>
+            <!-- Segunda sección -->
+            <section>
+                <div class="row row-cols-1 row-cols-md-3 g-4" style="margin-top: 32px; background-color:white;">
+                    <!--
+                        SECCIÓN MUESTRA PRINCIPAL
+                    -->
+                    @if (Model.Count() > 0)
+                    {
+                        @foreach (var i in Model)
+                        {
+                            <div class="col" id="@i.NombreEvento.Replace(" ","").ToLower()">
+                                <div class="card h-100">
+                                    <div class="card" style="margin-top: -1em; background-color:white;">
+                                        <div class="contenedor">
+
+                                            @{
+                                                var par = new Dictionary<string, string> {
+                                                        {"id", i.EventoId.ToString()},
+                                                        {"id2", ViewBag.perfil}
+                                                    };
+                                            }
+
+                                            <a asp-controller="Evento" id="@i.EventoId" asp-action="IndexEvento" asp-all-route-data="par">
+                                                <figure>
+                                                    <img class="d-block w-100" src="@Url.Content("~/imageBD/"+i.NombreImagen)" alt="Imagen no encontrada" width=90% height="262%">
+                                                    <div class="capa">
+                                                        <h3>@i.NombreEvento</h3>
+                                                        <p>Ver más detalles</p>
+                                                    </div>
+                                                </figure>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-center" style="margin-top: 8em">
+                                        <h5 class="card-title">@i.NombreEvento</h5>
+                                        <p class="card-text">
+                                            @i.Descripcion
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                            <h1>
+                                Por el momento no hay eventos registrados, vuelva más tarde!!
+                            </h1>
+                    }
+                </div>
+
+            </section>
+        </main>
+
+        <footer class="bg-light text-center text-white social">
+            <hr>
+            <div class="container p-4 pb-0">
+                <!-- Section: Social media -->
+                <section class="mb-4">
+                    <!-- Facebook -->
+                    <a class="btn text-white btn-floating m-1" style="background-color: #3b5998;" href="https://www.facebook.com/UPN" target=_blank
+                       role="button">
+                        <em class="bi bi-facebook"></em>
+                    </a>
+
+                    <!-- Twitter -->
+                    <a class="btn text-white btn-floating m-1 tw" style="background-color: #55acee;" href="https://twitter.com/upn_oficial" target=_blank
+                       role="button">
+                        <em class="bi bi-twitter"></em>
+                    </a>
+
+                    <!-- TikTok -->
+                    <a class="btn text-white btn-floating m-1" style="background-color: black;" href="url(https://www.tiktok.com/)" target="_blank"
+                       role="button">
+                        <em class="bi bi-tiktok"></em>
+                    </a>
+
+                    <!-- Instagram -->
+                    <a class="btn text-white btn-floating m-1" style="background-color: #ac2bac;" href="https://www.instagram.com/upn/" target=_blank
+                       role="button">
+                        <em class="bi bi-instagram"></em>
+                    </a>
+
+                    <!-- Linkedin -->
+                    <a class="btn text-white btn-floating m-1" style="background-color: #0082ca;" href="https://www.linkedin.com/school/universidad-privada-del-norte/" target=_blank
+                       role="button">
+                        <em class="bi bi-linkedin"></em>
+                    </a>
+                    <!-- Youtube -->
+                    <a class="btn text-white btn-floating m-1" style="background-color: #ad0303;" href="https://www.youtube.com/user/UPNTVcanaloficial" target=blank
+                       role="button">
+                        <em class="bi bi-youtube"></em>
+                    </a>
+                </section>
+                <!-- Section: Social media -->
+            </div>
+
+            <!-- Copyright -->
+            <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                © 2022 Copyright
+            </div>
+            <!-- Copyright -->
+        </footer>
+    </div>
+</body>
+
+</html>

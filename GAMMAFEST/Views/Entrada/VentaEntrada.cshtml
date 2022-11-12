@@ -1,0 +1,135 @@
+﻿@model GAMMAFEST.Models.Entrada
+
+@{
+    ViewData["Title"] = "CrearUsuario";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login V1</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <!--<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/css/dist/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/fonts/font-awesome-4.7.0/css/font-awesome.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100" style="padding:55px">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <img src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/121/7767614121_a8207d12-1307-47cf-800f-6e491222498a.png?cb=1662594150" alt="IMG">
+                </div>
+                <form class="login100-form validate-form" id="create_User" method="post">
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" autocomplete="username" style="padding: 0 30px 0 2em;" aria-required="true" placeholder="Nombres:" value="@ViewBag.nombre"/>
+                    </div>
+
+                    <div class="wrap-input100 validate-input">
+                        <input class="input100" autocomplete="username" style="padding: 0 30px 0 2em;" aria-required="true" placeholder="Apellidos:" value="@ViewBag.apellido" />
+                    </div>
+                    <div class="wrap-input100 validate-input">
+                        <label>N° de tarjeta de Crédito:</label>
+                        <input id="TargetCred" class="input100" style="padding: 0 30px 0 2em; width:13em;" aria-required="true" placeholder="N°" />
+                    </div>
+
+                    <div class="wrap-input100 validate-input">
+                        <label>CVV: </label>
+                        <input id="cvv" class="input100" style="padding: 0 30px 0 2em;width:6.2em" aria-required="true" type="password" placeholder="CVV" />
+                    </div>
+
+                    <input asp-for="EntradaId" value="@ViewBag.Count"/>
+                    <input asp-for="EventoId" type="hidden" class="form-control" value="@ViewBag.idEvento" />
+                    <input asp-for="IdUser" type="hidden" class="form-control" value="@ViewBag.idPromotor" />
+
+                    <div class="form-group" id="expiration-date">
+                        <label>Fecha de Expiración:</label>
+                        <table id="fechaEvento">
+                            <th id="opciones">
+                                <select id="dia" class="input100" style="width:5em; padding: 0 5px 0 1em;">
+                                    <option>01</option>
+                                    <option>02 </option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                </select>
+                            </th>
+                            <th id="años">
+                                <select id="año" class="input100" style="width:6em; padding: 0 5px 0 1em;">
+                                    <option> 2022</option>
+                                    <option> 2023</option>
+                                    <option> 2024</option>
+                                    <option> 2025</option>
+                                    <option> 2026</option>
+                                    <option> 2027</option>
+                                    <option> 2028</option>
+                                    <option> 2029</option>
+                                </select>
+                            </th>
+                        </table>
+                        <div class="form-group" id="cantidad">
+                            <label>Cantidad de Entradas: </label>
+                            <select asp-for="CantidadEntradas" id="select" class="input100" style="width:5em; padding: 0 5px 0 1em;">
+                                @for(int i=1;i<=ViewBag.contadorAforo;i++){
+                                    <option>@i</option>
+                                }                                
+                            </select>
+                        </div>
+                        <input type="hidden" asp-for="PrecioTotal" value="1" />
+                    </div>
+                    <div class="form-group" id="credit_cards">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/7/72/MasterCard_early_1990s_logo.png" id="mastercard" width="30" height="20" alt="No Encontrado">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/16/Former_Visa_%28company%29_logo.svg" id="visa" width="30" height="20" alt="No Encontrado">
+                        <img src="https://1000marcas.net/wp-content/uploads/2020/08/Diners-Club-International-logo.jpg" id="amex" width="30" height="20" alt="No Encontrado">
+                    </div>
+                    <div class="container-login100-form-btn">
+
+                        <div class="login100-form-btn">
+                            <button class="login100-form-btn" id="generar" type="submit">Confirmar</button>
+                        </div>
+                        <input type="hidden" asp-for="TextoQR" value="a"></input>
+                        <input type="hidden" asp-for="IdCantidad" value="@ViewBag.Count"></>
+                        @*
+                        <a onclick="Alerta();" class="login100-form-btn" id="login-submit" type="submit" asp-controller="Usuario" asp-action="Qr" asp-route=1>
+                        Confirmar
+                        </a>*@
+
+                        <script>
+                            function Alerta() {
+                                alert("Su compra ha sido realizada correctamente");
+                            }
+                        </script>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

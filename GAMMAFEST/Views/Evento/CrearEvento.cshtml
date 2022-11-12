@@ -1,0 +1,114 @@
+﻿@model GAMMAFEST.Models.Evento
+@using System.Security.Claims;
+
+@{
+    ViewData["Title"] = "CrearEvento";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Registro de Evento</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <!--<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/css/dist/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/fonts/font-awesome-4.7.0/css/font-awesome.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <img src="~/image/logo_black.png" alt="IMG">
+                    @if (ViewData["MENSAJE"] != null)
+                    {
+                        <br>
+                        <br>
+                        <div class=" alert alert-danger">
+                            @ViewData["MENSAJE"]
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    }
+                </div>
+                <form class="login100-form validate-form" method="post" asp-action="CrearEvento" enctype="multipart/form-data">
+                    <span class="login100-form-title">
+                        GAMMA-FEST
+                    </span>
+
+                    <span class="login100-form-title">
+                        Registrar Evento
+                    </span>
+
+                    <div class="wrap-input100 validate-input">
+                        <textarea asp-for="Descripcion" id="summernote1" class="input100" autocomplete="username" aria-required="true" placeholder="Descripcion"></textarea>
+                        <span asp-validation-for="Descripcion"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input">
+                        <input asp-for="NombreEvento" class="input100" autocomplete="username" aria-required="true" placeholder="Nombres:" />
+                        <span asp-validation-for="NombreEvento"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input">
+                        <input asp-for="Protocolos" class="input100" aria-required="true" placeholder="Protocolo:" />
+                        <span asp-validation-for="Protocolos"></span>
+                    </div>
+
+                    <input type="hidden" asp-for="NombreImagen" value="a1" />
+
+                    <div class="wrap-input100 validate-input">
+                        <input type="datetime-local" asp-for="FechaInicioEvento" id="fechaEvento" class="input100" aria-required="true" placeholder="Fecha del Evento" />
+                        <span asp-validation-for="FechaInicioEvento"></span>
+                    </div>
+
+                    <input asp-for="IdUser" value=@ViewBag.idPromTemp>
+
+                    <div class="wrap-input100 validate-input">
+                        <input asp-for="ArchivoImagen" class="input100" accept="image/*" />
+                        <span asp-validation-for="ArchivoImagen" class="text-danger"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input">
+                        <input asp-for="AforoMaximo" class="input100" id="aforoMaximo" aria-required="true" placeholder="Aforo Máximo" />
+                        <span asp-validation-for="AforoMaximo"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input">
+                        <input asp-for="PrecioEntradaUnit" class="input100" id="precioEntrada" aria-required="true" placeholder="Precio de la entrada (S/.)" />
+                        <span asp-validation-for="PrecioEntradaUnit"></span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <div class="form-group">
+                            <input type="submit" id="create" value="Almacenar Evento" class="cta3" />
+                        </div>
+                    </div>
+
+                    <div>
+                        <a asp-controller="Home" asp-action="Index">
+                           Regresar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

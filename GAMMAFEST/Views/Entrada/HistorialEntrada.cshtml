@@ -1,0 +1,101 @@
+﻿@model IEnumerable<Entrada>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Historial de Pedidos</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<!--<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/css/dist/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/fonts/font-awesome-4.7.0/css/font-awesome.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="~/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	<div class="container-login100">
+		<div class="wrap-login100">
+			@if (Model.Count() == 0) {
+				<div style="position: absolute;left: -13em;right: 10em;bottom: 0" class="login100-pic js-tilt" data-tilt>
+					<img src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/121/7767614121_a8207d12-1307-47cf-800f-6e491222498a.png?cb=1662594150" alt="IMG">
+				</div>
+
+				<div class="login100-form validate-form">
+					<span class="login100-form-title">
+						GAMMA-FEST
+					</span>
+
+					<span class="login100-form-title" id="soldOut">Lo sentimos, usted no ha realizado ninguna compra</span>
+				</div>
+			}
+
+			else{
+					<div class="login100-pic js-tilt" style="position: relative;
+left: 13.5em;
+right: 10em;
+bottom: 0;
+margin: auto;" data-tilt>
+						<img src="/image/logo_black.png" alt="IMG" style="position: relative; top: -3em;">
+					</div>
+					<table class="table">
+						<caption>Historial de Pedidos</caption>
+						<tr>
+							<th id="numh">#</th>
+							<th id="evenh">Evento</th>
+							<th id="canh">Cantidad de Entradas</th>
+							<th id="monh">Monto total</th>
+							<th id="fecha">Fecha de Inicio</th>
+							<th id="hora">Hora de Inicio</th>
+							<th id="bton">Botón</th>
+						</tr>
+
+						@foreach(var item in Model){
+
+							<tr>
+								<td>
+									@item.EntradaId
+								</td>
+								<td>
+									@item.Evento.NombreEvento
+								</td>
+								<td>
+									@item.CantidadEntradas
+								</td>
+								<td>
+									S/.@item.PrecioTotal
+								</td>
+								<td>
+									@item.Evento.FechaInicioEvento.ToString("d")
+								</td>
+							<td>
+								@item.Evento.FechaInicioEvento.ToString("HH:MM")
+							</td>
+								<td>
+								@{
+									var par = new Dictionary<string, string> {
+										{"id", item.IdUser.ToString()},
+										{"idCant", item.IdCantidad.ToString()}
+										};
+								}
+								<a id="entrada_@item.EntradaId" type="button" class=" btn btn-dark" asp-action="HistorialCantidad" asp-controller="Entrada" asp-all-route-data="par">Ver Entradas</a>
+								</td>
+							</tr>
+							}
+					</table>
+			}
+			<a type="button" class=" btn btn-dark" asp-action="Index" asp-controller="Home">Volver a la Pantalla Inicial</a>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GAMMAFEST", "GAMMAFEST\GAMMAFEST.csproj", "{86CF6301-B1A5-4999-80D4-A290576B7A3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GAMMAFEST_TESTING", "GAMMAFEST_TESTING\GAMMAFEST_TESTING.csproj", "{534D0E89-FD2F-48BE-A17E-0AE38E0EED64}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{86CF6301-B1A5-4999-80D4-A290576B7A3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86CF6301-B1A5-4999-80D4-A290576B7A3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86CF6301-B1A5-4999-80D4-A290576B7A3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86CF6301-B1A5-4999-80D4-A290576B7A3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{534D0E89-FD2F-48BE-A17E-0AE38E0EED64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{534D0E89-FD2F-48BE-A17E-0AE38E0EED64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{534D0E89-FD2F-48BE-A17E-0AE38E0EED64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{534D0E89-FD2F-48BE-A17E-0AE38E0EED64}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59B184FE-8622-46CD-BACB-2A13F84F7CEA}
+	EndGlobalSection
+EndGlobal

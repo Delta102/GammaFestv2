@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Entrada>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Historial de Pedidos</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<!--<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/css/dist/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/fonts/font-awesome-4.7.0/css/font-awesome.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="~/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	<div class="container-login100">
+		<div class="wrap-login100">
+			@if (Model.Count() == 0) {
+				<div class="login100-pic js-tilt" data-tilt>
+					<img src="https://dewey.tailorbrands.com/production/brand_version_mockup_image/121/7767614121_a8207d12-1307-47cf-800f-6e491222498a.png?cb=1662594150" alt="IMG" style="position: relative;
+  top: -3em;">
+				</div>
+
+				<div class="login100-form validate-form">
+					<span class="login100-form-title">
+						GAMMA-FEST
+					</span>
+
+					<span class="login100-form-title" id="soldOut">Lo sentimos, usted no ha realizado ninguna compra</span>
+				</div>
+			}
+
+			else{
+					<div class="login100-pic js-tilt" style="position: relative;
+left: 13.5em;
+right: 10em;
+bottom: 0;
+margin: auto;" data-tilt>
+						<img src="/image/logo_black.png" alt="IMG" style="position: relative; top: -3em;">
+					</div>
+					<table class="table">
+						<caption>Tabla De Historial</caption>
+						<tr>
+							<th id="numerot">#</th>
+							<th id="eventot">Evento</th>
+							<th id="preciot">Precio Unitario</th>
+							<th id="descargat">Descarga</th>
+							<th id="sharet">Compartir</th>
+						</tr>
+
+						@foreach(var item in Model){
+
+							<tr>
+								<td>
+									@item.EntradaId
+								</td>
+								<td>
+									@item.Evento.NombreEvento
+								</td>
+								<td>
+									S/.@item.Evento.PrecioEntradaUnit
+								</td>
+								<td>
+									<a id="descarga" type="button" class=" btn btn-dark" href="@Url.Content("~/GeneratedQRCode/qrcodev2"+item.EntradaId+".png")" download> Descargue su código QR</a>
+								</td>
+								<td>
+									<button id="share" type="button" class=" btn btn-dark"> Compartir Entrada</button>
+								</td>
+							</tr>
+							}
+					</table>
+			}
+			<a id="regresar" type="button" class=" btn btn-dark" asp-action="Index" asp-controller="Home">Volver a la Pantalla Inicial</a>
+		</div>
+	</div>
+</body>
+</html>

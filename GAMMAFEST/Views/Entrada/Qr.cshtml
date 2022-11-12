@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "CreateQRCode";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Generación QR</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<!--<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/css/dist/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/fonts/font-awesome-4.7.0/css/font-awesome.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="~/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div style="height: 49%">
+				@*<form class="login100-form validate-form" id="account">*@
+				<div class="wrap-login100" >
+					<div style="position: relative; left:16em;">
+							<div class="container-login100-form-btn" style="position: relative; top: -6em">
+								<img src="@ViewBag.QrCodeUri" class="img-thumbnail" alt="Imagen No Encontrada"/>
+							</div>
+						<a type="button" id="descarga" class=" btn btn-dark" href="@Url.Content("~/GeneratedQRCode/qrcodev2"+ViewBag.EntradaId+".png")" download> Descargue su código QR</a>
+
+						<a type="button" id="regresar" class=" btn btn-dark" asp-controller="Home" asp-action="Index"> Regresar</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
