@@ -75,5 +75,12 @@ namespace GAMMAFEST.Controllers
             ViewBag.idTemp = id2.ToString();
             return View(evento);
         }
+
+
+        [HttpGet]
+        public IActionResult ListarEventos(int id) {
+            var list = repositorio.ObtenerTodosEventosByUserId(id);
+            return View(list);
+        }
     }
 }

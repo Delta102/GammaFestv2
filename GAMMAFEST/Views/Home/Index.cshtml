@@ -60,7 +60,9 @@
                                     }
                                     @if (ViewBag.estado == "ADMIN")
                                     {
-                                        <li><a id="create_event" class="dropdown-item" asp-route-Id=@ViewBag.perfil asp-controller="Evento" asp-action="CrearEvento">Administrar Eventos</a></li>
+                                        <li><a id="create_event" class="dropdown-item" asp-route-Id=@ViewBag.perfil asp-controller="Evento" asp-action="ListarEventos">Administrar Eventos</a></li>
+
+                                        <li><a id="create_event" class="dropdown-item" asp-route-Id=@ViewBag.perfil asp-controller="Entrada" asp-action="HistorialEntrada">Historial de Pedidos</a></li>
                                     }
                                     
                                     <li><hr class="dropdown-divider"></li>

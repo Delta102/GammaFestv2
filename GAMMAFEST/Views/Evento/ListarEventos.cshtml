@@ -1,0 +1,77 @@
+﻿@model IEnumerable<GAMMAFEST.Models.Evento>
+
+@{
+    ViewData["Title"] = "ListarEventos";
+}
+
+<h1>ListarEventos</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaInicioEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreEvento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreImagen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Protocolos)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AforoMaximo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioEntradaUnit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserPromotor)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaInicioEvento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreEvento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreImagen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Protocolos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AforoMaximo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecioEntradaUnit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserPromotor.IdUser)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.EventoId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.EventoId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.EventoId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

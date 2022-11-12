@@ -110,5 +110,7 @@ namespace GAMMAFEST.Repositorio
         {
             return _context.UserPromotor.Single(u => u.IdUser == id);
         }
+
+
     }
 }

@@ -19,6 +19,7 @@ namespace GAMMAFEST.Repositorio
     public interface IEventoRepositorio
     {
         IEnumerable<Evento> ObtenerTodosEventos();
+        IEnumerable<Evento> ObtenerTodosEventosByUserId(int id);
         Evento ObtenerSoloEvento(int id);
         Evento ObtenerSoloEventoConPromotor(int id);
         void CrearEvento(Evento evento);
@@ -34,6 +35,11 @@ namespace GAMMAFEST.Repositorio
         public IEnumerable<Evento> ObtenerTodosEventos()
         {
             return _context.Evento;
+        }
+
+        public IEnumerable<Evento> ObtenerTodosEventosByUserId(int id)
+        {
+            return _context.Evento.Where(o=>o.IdUser == id);
         }
 
         public Evento ObtenerSoloEvento(int id)
