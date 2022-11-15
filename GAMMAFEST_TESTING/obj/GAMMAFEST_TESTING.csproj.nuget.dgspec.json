@@ -1,0 +1,191 @@
+{
+  "format": 1,
+  "restore": {
+    "E:\\CICLO VIII\\CALIDAD Y PRUEBAS DE SOFTWARE\\PROYECTO FINAL\\GAMMAFEST\\GAMMAFEST_TESTING\\GAMMAFEST_TESTING.csproj": {}
+  },
+  "projects": {
+    "E:\\CICLO VIII\\CALIDAD Y PRUEBAS DE SOFTWARE\\PROYECTO FINAL\\GAMMAFEST\\GAMMAFEST\\GAMMAFEST.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\CICLO VIII\\CALIDAD Y PRUEBAS DE SOFTWARE\\PROYECTO FINAL\\GAMMAFEST\\GAMMAFEST\\GAMMAFEST.csproj",
+        "projectName": "GAMMAFEST",
+        "projectPath": "E:\\CICLO VIII\\CALIDAD Y PRUEBAS DE SOFTWARE\\PROYECTO FINAL\\GAMMAFEST\\GAMMAFEST\\GAMMAFEST.csproj",
+        "packagesPath": "C:\\Users\\alfre\\.nuget\\packages\\",
+        "outputPath": "E:\\CICLO VIII\\CALIDAD Y PRUEBAS DE SOFTWARE\\PROYECTO FINAL\\GAMMAFEST\\GAMMAFEST\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\alfre\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "BarCode": {
+              "target": "Package",
+              "version": "[2022.9.8982, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.10, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[6.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[6.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.10, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.10, )"
+            },
+            "QRCoder": {
+              "target": "Package",
+              "version": "[1.4.3, )"
+            },
+            "ZXing.Net": {
+              "target": "Package",
+              "version": "[0.16.8, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\CICLO VIII\\CALIDAD Y PRUEBAS DE SOFTWARE\\PROYECTO FINAL\\GAMMAFEST\\GAMMAFEST_TESTING\\GAMMAFEST_TESTING.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\CICLO VIII\\CALIDAD Y PRUEBAS DE SOFTWARE\\PROYECTO FINAL\\GAMMAFEST\\GAMMAFEST_TESTING\\GAMMAFEST_TESTING.csproj",
+        "projectName": "GAMMAFEST_TESTING",
+        "projectPath": "E:\\CICLO VIII\\CALIDAD Y PRUEBAS DE SOFTWARE\\PROYECTO FINAL\\GAMMAFEST\\GAMMAFEST_TESTING\\GAMMAFEST_TESTING.csproj",
+        "packagesPath": "C:\\Users\\alfre\\.nuget\\packages\\",
+        "outputPath": "E:\\CICLO VIII\\CALIDAD Y PRUEBAS DE SOFTWARE\\PROYECTO FINAL\\GAMMAFEST\\GAMMAFEST_TESTING\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\alfre\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "E:\\CICLO VIII\\CALIDAD Y PRUEBAS DE SOFTWARE\\PROYECTO FINAL\\GAMMAFEST\\GAMMAFEST\\GAMMAFEST.csproj": {
+                "projectPath": "E:\\CICLO VIII\\CALIDAD Y PRUEBAS DE SOFTWARE\\PROYECTO FINAL\\GAMMAFEST\\GAMMAFEST\\GAMMAFEST.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.1.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.18.2, )"
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.13.3, )"
+            },
+            "NUnit.Analyzers": {
+              "target": "Package",
+              "version": "[3.3.0, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[4.2.1, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
