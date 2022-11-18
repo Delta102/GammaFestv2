@@ -80,6 +80,7 @@ namespace GAMMAFEST.Controllers
         [HttpGet]
         public IActionResult ListarEventos(int id) {
             var list = repositorio.ObtenerTodosEventosByUserId(id);
+            ViewBag.id = id;
             return View(list);
         }
     }

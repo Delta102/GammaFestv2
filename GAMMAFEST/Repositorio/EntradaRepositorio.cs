@@ -61,16 +61,16 @@ namespace GAMMAFEST.Repositorio
 
                 var txtQR = "# de Ticket: " + entrada.EntradaId + "\nNombre de Evento: " + nombreEvento + "\nUsuario: " + userName;
 
-                var logoPath = Path.Combine(webPath, "image\\");
+                var logoPath = Path.Combine(webPath, "image", "logo_black_qrLogo.jpg");
 
-                var qr = QRCodeWriter.CreateQrCodeWithLogo(txtQR, webPath+"/image/" + "logo_black_qrLogo.jpg");
+                var qr = QRCodeWriter.CreateQrCodeWithLogo(txtQR, logoPath);
 
                 string path = Path.Combine(webPath, "GeneratedQRCode");
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
                 }
-                string filePath = Path.Combine(webPath, "GeneratedQRCode/qrcodev2" + entrada.EntradaId + ".png");
+                string filePath = Path.Combine(path, "qrcodev2" + entrada.EntradaId + ".png");
                 qr.SaveAsPng(filePath);
             }
             catch (Exception)
