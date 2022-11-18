@@ -10,7 +10,9 @@ using Microsoft.Extensions.Hosting;
 using Moq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,8 +22,6 @@ namespace GAMMAFEST_TESTING.ControllersTesting
     public class EntradaControllerTest
     {
         EntradaController controller;
-
-        IWebHostEnvironment hostEnvironment;
 
         EventoRepositorio eventoRepositorio;
         PromotorRepositorio promotorRepositorio;
@@ -98,8 +98,8 @@ namespace GAMMAFEST_TESTING.ControllersTesting
             mock.Setup(o => o.Evento).Returns(mockEvento.Object);
 
             var webHostMock = new Mock<IWebHostEnvironment>();
-            webHostMock.Setup(x => x.WebRootPath).Returns(hostEnvironment.WebRootPath);
-            //
+            webHostMock.Setup(x => x.WebRootPath).Returns("asdf");
+            
 
 
             eventoRepositorio = new EventoRepositorio(mock.Object);
@@ -237,8 +237,12 @@ namespace GAMMAFEST_TESTING.ControllersTesting
             };
 
 
+            var mock = new Mock<IWebHostEnvironment>();
+            mock.Setup(x => x.WebRootPath).Returns("asd");
+
             var result = controller.VentaEntrada(1, 4);
             var result2 = controller.VentaEntrada(1, 1);
+            
 
             Assert.IsInstanceOf<ViewResult>(result2);
             Assert.IsInstanceOf<RedirectToActionResult>(result);
