@@ -98,7 +98,9 @@ namespace GAMMAFEST_TESTING.ControllersTesting
             mock.Setup(o => o.Evento).Returns(mockEvento.Object);
 
             var webHostMock = new Mock<IWebHostEnvironment>();
-            webHostMock.Setup(x => x.WebRootPath).Returns("E:\\CICLO VIII\\CALIDAD Y PRUEBAS DE SOFTWARE\\PROYECTO FINAL\\GAMMAFEST\\GAMMAFEST\\wwwroot\\");
+            webHostMock.Setup(x => x.WebRootPath).Returns(hostEnvironment.WebRootPath);
+            //
+
 
             eventoRepositorio = new EventoRepositorio(mock.Object);
 
