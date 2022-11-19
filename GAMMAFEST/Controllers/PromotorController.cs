@@ -84,20 +84,8 @@ namespace GAMMAFEST.Controllers
         [HttpGet]
         public IActionResult Init()
         {
-            ViewBag.perfil = GetLoggedUser();
+            ViewBag.perfil = rep.GetLoggedUser();
 
-            return View();
-        }
-        public UserPromotor GetLoggedUser()
-        {
-            var claim = User.Claims.FirstOrDefault();
-            var username = claim.Value;
-            return rep.ObtenerInicio(username);
-        }
-
-        public IActionResult ErrorAcceso()
-        {
-            ViewData["MENSAJE"] = "Error de acceso";
             return View();
         }
 

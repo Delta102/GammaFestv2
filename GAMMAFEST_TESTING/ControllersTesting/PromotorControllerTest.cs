@@ -3,10 +3,12 @@ using GAMMAFEST.Data;
 using GAMMAFEST.Helpers;
 using GAMMAFEST.Models;
 using GAMMAFEST.Repositorio;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using SixLabors.ImageSharp;
+using System.Security.Claims;
 
 namespace GAMMAFEST_TESTING.ControllersTesting
 {
@@ -57,7 +59,12 @@ namespace GAMMAFEST_TESTING.ControllersTesting
             var mock = new Mock<ContextoDb>();
             mock.Setup(o => o.UserPromotor).Returns(mockUser.Object);
 
-            eRepositorio = new PromotorRepositorio(mock.Object);
+            var mockClaimsPrincipal = new Mock<ClaimsPrincipal>();
+            mockClaimsPrincipal.Setup(o => o.Claims).Returns(new List<Claim> { new Claim(ClaimTypes.Name, "User1") });
+            var mockContext = new Mock<IHttpContextAccessor>();
+            mockContext.Setup(o => o.HttpContext.User).Returns(mockClaimsPrincipal.Object);
+
+            eRepositorio = new PromotorRepositorio(mock.Object, mockContext.Object);
 
             controller = new PromotorController(eRepositorio);
         }
@@ -97,10 +104,29 @@ namespace GAMMAFEST_TESTING.ControllersTesting
         [Test]
         public void LoginUserNullTest()
         {
-            var controller = new PromotorController(eRepositorio);
             var result = controller.Login("Usertest6@user6.pe", password + "asd");
             Assert.That(controller.ViewData["MENSAJE"], Is.EqualTo("No tienes credenciales correctas"));
             Assert.IsInstanceOf<Task<IActionResult>>(result);
+        }
+
+        [Test]
+        public void RegistroViewTest()
+        {
+            var view = controller.RegistroPromotor();
+            Assert.IsNotNull(view);
+        }
+
+        [Test]
+        public void ObtenerUsuarioLogueadoTest() {
+            var user = controller.Init() as Controller;
+            Assert.IsNotNull(user.ViewBag.perfil);
+        }
+
+        [Test]
+        public void CerrarSesionTest()
+        {
+            var direccion = controller.LogOut();
+            Assert.IsInstanceOf<Task<IActionResult>>(direccion);
         }
 
 

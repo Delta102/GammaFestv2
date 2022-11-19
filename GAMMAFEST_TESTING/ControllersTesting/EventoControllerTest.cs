@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Moq;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -164,6 +165,13 @@ namespace GAMMAFEST_TESTING.ControllersTesting
             Assert.That(result, Is.EqualTo(evento.NombreImagen));
         }
 
+        [Test]
+        public void ListarEventosbyUserIdControllerTest() {
+            var result = controller.ListarEventos(1) as ViewResult;
+            Assert.IsInstanceOf<IEnumerable<Evento>>(result.Model);
+        }
+
+
 
         //MÉTODOS REPOSITORIOS
         [Test]
@@ -178,6 +186,13 @@ namespace GAMMAFEST_TESTING.ControllersTesting
         {
             var result = eRepositorio.ObtenerSoloEvento(1);
             Assert.That(result.NombreEvento, Is.EqualTo("TestEvento"));
+        }
+
+        [Test]
+        public void ObtenerEventosByUserIdTest() {
+            var result = eRepositorio.ObtenerTodosEventosByUserId(1);
+            Assert.That(result.Count(), Is.EqualTo(3));
+
         }
 
         [Test]

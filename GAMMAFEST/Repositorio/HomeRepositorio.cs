@@ -9,24 +9,21 @@ namespace GAMMAFEST.Repositorio
             
         }
 
-        public class EventoRepositorio : IHomeRepositorio
+        public class HomeRepositorio : IHomeRepositorio
         {
             public readonly ContextoDb _context;
             public HomeRepositorio(ContextoDb context)
             {
                 _context = context;
             }
-            public IEnumerable<Evento> ObtenerEventos(int? id)
-            {
-                return _context.Evento.Include(p => p.Promotor).Where(e => e.EventoId == id); ;
+
+            public void HomeLogin() {
+                if (User.Identity.IsAuthenticated && rep.ConteoUser() > 0)
+                {
+
+                }
             }
 
-            public void CrearEvento(Evento evento)
-            {
-                _context.Add(evento);
-                _context.SaveChangesAsync();
-            }
         }*/
-
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Data.Common;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,7 +49,6 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddSingleton<ITempDataProvider, CookieTempDataProvider>();
 
 builder.Services.AddControllersWithViews(options => options.EnableEndpointRouting = false).AddSessionStateTempDataProvider();
-
 
 builder.Services.AddAuthorization(options =>
 {

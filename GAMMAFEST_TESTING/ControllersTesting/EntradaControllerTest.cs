@@ -4,6 +4,7 @@ using GAMMAFEST.Helpers;
 using GAMMAFEST.Models;
 using GAMMAFEST.Repositorio;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
@@ -14,6 +15,7 @@ using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -141,7 +143,19 @@ namespace GAMMAFEST_TESTING.ControllersTesting
             var mock2 = new Mock<ContextoDb>();
             mock2.Setup(o => o.UserPromotor).Returns(mockUser.Object);
 
-            promotorRepositorio = new PromotorRepositorio(mock2.Object);
+
+
+            var mockClaimsPrincipal = new Mock<ClaimsPrincipal>();
+            mockClaimsPrincipal.Setup(o => o.Claims).Returns(new List<Claim> { new Claim(ClaimTypes.Name, "User1") });
+            var mockContext = new Mock<IHttpContextAccessor>();
+            mockContext.Setup(o => o.HttpContext.User).Returns(mockClaimsPrincipal.Object);
+
+            /*controller.ControllerContext = new ControllerContext
+            {
+                HttpContext = mockContext.Object.HttpContext
+            };*/
+
+            promotorRepositorio = new PromotorRepositorio(mock2.Object, mockContext.Object);
 
             lista3 = new List<Entrada> {
                 new Entrada {

@@ -13,15 +13,17 @@ namespace GAMMAFEST.Repositorio
         UserPromotor ObtenerInicio(string username);
         int ConteoUser();
         UserPromotor ObtenerUserById(int? id);
+        public UserPromotor GetLoggedUser();
     }
     public class PromotorRepositorio: IPromotorRepositorio
     {
-        
+        public readonly IHttpContextAccessor _contextAccesor;
         public readonly ContextoDb _context;
 
-        public PromotorRepositorio(ContextoDb context)
+        public PromotorRepositorio(ContextoDb context, IHttpContextAccessor contextAccesor)
         {
             _context = context;
+            _contextAccesor = contextAccesor;   
         }
 
         public bool ExisteEmail(string email)
@@ -111,6 +113,12 @@ namespace GAMMAFEST.Repositorio
             return _context.UserPromotor.Single(u => u.IdUser == id);
         }
 
-
+        public UserPromotor GetLoggedUser()
+        {
+            var claim = _contextAccesor.HttpContext.User.Claims.FirstOrDefault();
+            var username = (claim == null ? string.Empty : claim.Value);
+            var result = _context.UserPromotor.FirstOrDefault(o => o.Nombre == username);
+            return result;
+        }
     }
 }

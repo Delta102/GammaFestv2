@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using System.Diagnostics;
 
 namespace GAMMAFEST_TESTING.ControllersTesting
 {
@@ -132,16 +133,30 @@ namespace GAMMAFEST_TESTING.ControllersTesting
             var mock2 = new Mock<ContextoDb>();
             mock2.Setup(o => o.UserPromotor).Returns(mockUser.Object);
 
-            promotorRepositorio = new PromotorRepositorio(mock2.Object);
+
+            //CLAIMS
+
+            var mockClaimsPrincipal = new Mock<ClaimsPrincipal>();
+            mockClaimsPrincipal.Setup(o => o.Claims).Returns(new List<Claim> { new Claim(ClaimTypes.Name, "User1") });
+            var mockContext = new Mock<IHttpContextAccessor>();
+            mockContext.Setup(o => o.HttpContext.User).Returns(mockClaimsPrincipal.Object);
+
+            promotorRepositorio = new PromotorRepositorio(mock2.Object, mockContext.Object);
 
             homeController = new HomeController(eventoRepositorio, promotorRepositorio);
         }
-        /*
+        
         [Test]
         public void IndexTest() {
-            var result = homeController.Index();
+
+            var mockClaimsPrincipal = new Mock<ClaimsPrincipal>();
+            mockClaimsPrincipal.Setup(o => o.Claims).Returns(new List<Claim> { new Claim(ClaimTypes.Name, "User1") });
+            var mockContext = new Mock<HttpContext>();
+            mockContext.Setup(o => o.User).Returns(mockClaimsPrincipal.Object);
+
+            var result = homeController.Index() as ViewResult;
             Assert.IsNotNull(result);
-        }*/
+        }
 
         [Test]
         public void PrivacyTest()
@@ -149,5 +164,6 @@ namespace GAMMAFEST_TESTING.ControllersTesting
             var result = homeController.Privacy();
             Assert.IsNotNull(result);
         }
+
     }
 }

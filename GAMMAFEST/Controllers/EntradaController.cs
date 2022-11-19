@@ -47,9 +47,7 @@ namespace GAMMAFEST.Controllers
             ViewBag.idPromotor = idUser;
 
             var evento = eventoRepositorio.ObtenerSoloEvento(idEvento);
-
-            /**/
-
+            
 
             if (evento.AforoMaximo>0)
             {
@@ -114,34 +112,6 @@ namespace GAMMAFEST.Controllers
             return View();
         }
 
-        public IActionResult Qr(string texto, int id)
-        {
-            try
-            {
-                ViewBag.EntradaId = id;
-                //repositorioEntrada.GuardarEnlace(qr);
-                GeneratedBarcode barcode = QRCodeWriter.CreateQrCode(texto, 200);
-                barcode.AddBarcodeValueTextBelowBarcode();
-                // Styling a QR code and adding annotation text
-                barcode.SetMargins(10);
-                barcode.ChangeBarCodeColor(Color.Black);
-                string path = Path.Combine(_hostEnvironment.WebRootPath, "GeneratedQRCode");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-                string filePath = Path.Combine(_hostEnvironment.WebRootPath, "GeneratedQRCode/qrcodev2" + id + ".png");
-                barcode.SaveAsPng(filePath);
-                string fileName = Path.GetFileName(filePath);
-                string imageUrl = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}" + "/GeneratedQRCode/" + fileName;
-                ViewBag.QrCodeUri = imageUrl;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return View();
-        }
 
         [HttpGet]
         public IActionResult HistorialEntrada(int id) {
