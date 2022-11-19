@@ -118,8 +118,13 @@ namespace GAMMAFEST_TESTING.ControllersTesting
 
         [Test]
         public void ObtenerUsuarioLogueadoTest() {
-            var user = controller.Init() as Controller;
-            Assert.IsNotNull(user.ViewBag.perfil);
+            var mockClaimsPrincipal = new Mock<ClaimsPrincipal>();
+            mockClaimsPrincipal.Setup(o => o.Claims).Returns(new List<Claim> { new Claim(ClaimTypes.Name, "User1") });
+            var mockContext = new Mock<HttpContext>();
+            mockContext.Setup(o => o.User).Returns(mockClaimsPrincipal.Object);
+
+            var user = controller.Init();
+            Assert.IsNotNull(user);
         }
 
         [Test]

@@ -164,6 +164,5 @@ namespace GAMMAFEST_TESTING.ControllersTesting
             var result = homeController.Privacy();
             Assert.IsNotNull(result);
         }
-
     }
 }
