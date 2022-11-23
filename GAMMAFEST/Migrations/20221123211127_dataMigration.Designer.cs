@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GAMMAFEST.Migrations
 {
     [DbContext(typeof(ContextoDb))]
-    [Migration("20221123023311_dataMigration")]
+    [Migration("20221123211127_dataMigration")]
     partial class dataMigration
     {
         /// <inheritdoc />
@@ -24,36 +24,6 @@ namespace GAMMAFEST.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("GAMMAFEST.Models.Comentario", b =>
-                {
-                    b.Property<int>("IdComentario")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdComentario"));
-
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("EventoId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FechaComentario")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("IdUser")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdComentario");
-
-                    b.HasIndex("EventoId");
-
-                    b.HasIndex("IdUser");
-
-                    b.ToTable("Comentario");
-                });
 
             modelBuilder.Entity("GAMMAFEST.Models.Entrada", b =>
                 {
@@ -78,9 +48,6 @@ namespace GAMMAFEST.Migrations
                     b.Property<int>("PrecioTotal")
                         .HasColumnType("int");
 
-                    b.Property<int?>("RegistroAsistenciaId")
-                        .HasColumnType("int");
-
                     b.Property<string>("TextoQR")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -88,8 +55,6 @@ namespace GAMMAFEST.Migrations
                     b.HasKey("EntradaId");
 
                     b.HasIndex("EventoId");
-
-                    b.HasIndex("RegistroAsistenciaId");
 
                     b.ToTable("Entrada");
                 });
@@ -154,6 +119,8 @@ namespace GAMMAFEST.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EntradaId");
+
                     b.ToTable("RegistroAsistencia");
                 });
 
@@ -194,21 +161,6 @@ namespace GAMMAFEST.Migrations
                     b.ToTable("UserPromotor");
                 });
 
-            modelBuilder.Entity("GAMMAFEST.Models.Comentario", b =>
-                {
-                    b.HasOne("GAMMAFEST.Models.Evento", "Evento")
-                        .WithMany()
-                        .HasForeignKey("EventoId");
-
-                    b.HasOne("GAMMAFEST.Models.UserPromotor", "UserPromotor")
-                        .WithMany()
-                        .HasForeignKey("IdUser");
-
-                    b.Navigation("Evento");
-
-                    b.Navigation("UserPromotor");
-                });
-
             modelBuilder.Entity("GAMMAFEST.Models.Entrada", b =>
                 {
                     b.HasOne("GAMMAFEST.Models.Evento", "Evento")
@@ -216,10 +168,6 @@ namespace GAMMAFEST.Migrations
                         .HasForeignKey("EventoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("GAMMAFEST.Models.RegistroAsistencia", null)
-                        .WithMany("Entrada")
-                        .HasForeignKey("RegistroAsistenciaId");
 
                     b.Navigation("Evento");
                 });
@@ -237,6 +185,12 @@ namespace GAMMAFEST.Migrations
 
             modelBuilder.Entity("GAMMAFEST.Models.RegistroAsistencia", b =>
                 {
+                    b.HasOne("GAMMAFEST.Models.Entrada", "Entrada")
+                        .WithMany()
+                        .HasForeignKey("EntradaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Entrada");
                 });
 #pragma warning restore 612, 618

@@ -84,13 +84,13 @@
                         <table class="table mb-0">
                             <thead>
                                 <tr>
-                                    <th>
+                                    <th id="ticket">
                                         # de Ticket: 
                                     </th>
-                                    <th>
+                                    <th id="evento">
                                         Evento: 
                                     </th>
-                                    <th>
+                                    <th id="usuario">
                                         Usuario
                                     </th>
                                 </tr>
@@ -113,8 +113,6 @@
 
                     <input type="hidden" asp-for="NombreImagen" value="a1" />
                     <input type="hidden" asp-for="EntradaId" value="1" />
-                    <!--<input type="hidden" asp-for="EventoId" value="1" />-->
-                    <!--<input type="hidden" asp-for="IdUser" value="1" />-->
 
                     <div>
                         <a asp-controller="Home" asp-action="Index">

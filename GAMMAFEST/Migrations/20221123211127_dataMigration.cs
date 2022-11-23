@@ -12,20 +12,6 @@ namespace GAMMAFEST.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "RegistroAsistencia",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    NombreImagen = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EntradaId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RegistroAsistencia", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "UserPromotor",
                 columns: table => new
                 {
@@ -70,32 +56,6 @@ namespace GAMMAFEST.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comentario",
-                columns: table => new
-                {
-                    IdComentario = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FechaComentario = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IdUser = table.Column<int>(type: "int", nullable: true),
-                    EventoId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Comentario", x => x.IdComentario);
-                    table.ForeignKey(
-                        name: "FK_Comentario_Evento_EventoId",
-                        column: x => x.EventoId,
-                        principalTable: "Evento",
-                        principalColumn: "EventoId");
-                    table.ForeignKey(
-                        name: "FK_Comentario_UserPromotor_IdUser",
-                        column: x => x.IdUser,
-                        principalTable: "UserPromotor",
-                        principalColumn: "IdUser");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Entrada",
                 columns: table => new
                 {
@@ -106,8 +66,7 @@ namespace GAMMAFEST.Migrations
                     IdUser = table.Column<int>(type: "int", nullable: false),
                     PrecioTotal = table.Column<int>(type: "int", nullable: false),
                     TextoQR = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdCantidad = table.Column<int>(type: "int", nullable: false),
-                    RegistroAsistenciaId = table.Column<int>(type: "int", nullable: true)
+                    IdCantidad = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -118,22 +77,27 @@ namespace GAMMAFEST.Migrations
                         principalTable: "Evento",
                         principalColumn: "EventoId",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Entrada_RegistroAsistencia_RegistroAsistenciaId",
-                        column: x => x.RegistroAsistenciaId,
-                        principalTable: "RegistroAsistencia",
-                        principalColumn: "Id");
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Comentario_EventoId",
-                table: "Comentario",
-                column: "EventoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comentario_IdUser",
-                table: "Comentario",
-                column: "IdUser");
+            migrationBuilder.CreateTable(
+                name: "RegistroAsistencia",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    NombreImagen = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EntradaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RegistroAsistencia", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RegistroAsistencia_Entrada_EntradaId",
+                        column: x => x.EntradaId,
+                        principalTable: "Entrada",
+                        principalColumn: "EntradaId",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Entrada_EventoId",
@@ -141,30 +105,27 @@ namespace GAMMAFEST.Migrations
                 column: "EventoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Entrada_RegistroAsistenciaId",
-                table: "Entrada",
-                column: "RegistroAsistenciaId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Evento_IdUser",
                 table: "Evento",
                 column: "IdUser");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RegistroAsistencia_EntradaId",
+                table: "RegistroAsistencia",
+                column: "EntradaId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Comentario");
+                name: "RegistroAsistencia");
 
             migrationBuilder.DropTable(
                 name: "Entrada");
 
             migrationBuilder.DropTable(
                 name: "Evento");
-
-            migrationBuilder.DropTable(
-                name: "RegistroAsistencia");
 
             migrationBuilder.DropTable(
                 name: "UserPromotor");

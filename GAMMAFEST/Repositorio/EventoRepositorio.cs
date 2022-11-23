@@ -57,7 +57,7 @@ namespace GAMMAFEST.Repositorio
 
         public void CrearEvento(Evento evento) {
             _context.Add(evento);
-            _context.SaveChangesAsync();
+            _context.SaveChanges();
         }
 
         public void ActualizarEvento(Evento evento)

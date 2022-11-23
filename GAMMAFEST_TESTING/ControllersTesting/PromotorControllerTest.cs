@@ -200,6 +200,7 @@ namespace GAMMAFEST_TESTING.ControllersTesting
             Assert.IsNotNull(user);
         }
 
+
         [Test]
         public void CerrarSesionTest()
         {

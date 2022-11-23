@@ -22,36 +22,6 @@ namespace GAMMAFEST.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GAMMAFEST.Models.Comentario", b =>
-                {
-                    b.Property<int>("IdComentario")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdComentario"));
-
-                    b.Property<string>("Descripcion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("EventoId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FechaComentario")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("IdUser")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdComentario");
-
-                    b.HasIndex("EventoId");
-
-                    b.HasIndex("IdUser");
-
-                    b.ToTable("Comentario");
-                });
-
             modelBuilder.Entity("GAMMAFEST.Models.Entrada", b =>
                 {
                     b.Property<int>("EntradaId")
@@ -186,21 +156,6 @@ namespace GAMMAFEST.Migrations
                     b.HasKey("IdUser");
 
                     b.ToTable("UserPromotor");
-                });
-
-            modelBuilder.Entity("GAMMAFEST.Models.Comentario", b =>
-                {
-                    b.HasOne("GAMMAFEST.Models.Evento", "Evento")
-                        .WithMany()
-                        .HasForeignKey("EventoId");
-
-                    b.HasOne("GAMMAFEST.Models.UserPromotor", "UserPromotor")
-                        .WithMany()
-                        .HasForeignKey("IdUser");
-
-                    b.Navigation("Evento");
-
-                    b.Navigation("UserPromotor");
                 });
 
             modelBuilder.Entity("GAMMAFEST.Models.Entrada", b =>

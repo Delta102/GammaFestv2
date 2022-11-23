@@ -67,14 +67,21 @@ namespace GAMMAFEST.Controllers
                     ViewData["MENSAJE"] = "Lo sentimos, el QR no pertenece a este evento";
                 else
                 {
-                    for (int i = 0; i < registros.Count(); i++)
-                        if (qr.EntradaId == registros[i].EntradaId)
+                    if (registros.Count() > 0)
+                    {
+                        for (int i = 1; i <= registros.Count(); i++)
                         {
-                            ViewData["MENSAJE"] = "Lo sentimos, su entrada ya ha sido registrada";
-                            encontrado = false;
+                            if (qr.EntradaId == registros[i-1].EntradaId)
+                            {
+                                ViewData["MENSAJE"] = "Lo sentimos, su entrada ya ha sido registrada";
+                                encontrado = false;
+                            }
+                            else
+                                encontrado = true;
                         }
-                        else
-                            encontrado = true;
+                    }
+                    else
+                        encontrado = true;
 
                     if (encontrado) {
                         ViewData["MENSAJE"] = "Felicidades, la asistencia fue registrada con éxito";
@@ -88,7 +95,6 @@ namespace GAMMAFEST.Controllers
                 ViewBag.evento = evento.NombreEvento;
                 ViewBag.usuario = user.Nombre;
 
-
             }
             return View(qr);
         }
@@ -98,8 +104,17 @@ namespace GAMMAFEST.Controllers
             var evento = eventoRepositorio.ObtenerSoloEvento(idEvento);
             var entrada = entradaRepositorio.ObtenerEntradasByEventoId(evento.EventoId);
 
-            var registro = repositorio.ListarAsistentes(entrada);
+            List<UserPromotor> user= new List<UserPromotor>();
 
+            for (int i = 0; i < entrada.Count(); i++)
+            {
+                if (entrada[i].EntradaId == entrada[i].IdCantidad)
+                    user.Add(promotorRepositorio.ObtenerUserById(entrada[i].IdUser));
+            }
+
+            ViewBag.usuarios = user;
+
+            var registro = repositorio.ListarAsistentes(entrada);
 
             return View(registro);
         }

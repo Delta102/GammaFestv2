@@ -38,34 +38,48 @@
                     <table class="table mb-0">
                         <thead>
                             <tr>
-                                <th>
+                                <th id="ticket">
                                     # de Ticket
                                 </th>
-                                <th>
-                                    # de Usuario
+                                <th id="usuario">
+                                    Nombre de Usuario
                                 </th>
-                                <th>
-                                    # de Evento
+                                <th id="usuario">
+                                    Email de Usuario
+                                </th>
+                                <th id="evento">
+                                    Nombre del Evento
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @item.Entrada.EntradaId
+                            @{
+                                var usuarios = ViewBag.usuarios as List<GAMMAFEST.Models.UserPromotor>;
+                                var contador = 0;
+                            }
+                                @foreach (var item in Model)
+                                {
+                                @if (contador >= usuarios.Count())
+                                {
+                                    contador = 0;
+                                }
+                                    <tr>
+                                        <td>
+                                            @item.Entrada.EntradaId
+                                        </td>
+                                        <td>
+                                        @usuarios[contador].Nombre
                                     </td>
                                     <td>
-                                        @item.Entrada.IdUser
+                                        @usuarios[contador].Email
                                     </td>
                                     <td>
-                                        @item.Entrada.EventoId
-                                    </td>
-                                    <td>
+                                        @ViewBag.evento
                                     </td>
                                 </tr>
+                                contador++;
                             }
+                                
                         </tbody>
                     </table>
 
