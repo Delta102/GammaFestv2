@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "q1wmjD6HzPMajRKEDzP19n83n7JDwIW7OT74A5LoBl8=",
+  "Hash": "1y7t+V7q+OriLY0lZyw6EEZK9ytvtvGzijED2adiXqs=",
   "Source": "GAMMAFEST",
   "BasePath": "_content/GAMMAFEST",
   "Mode": "Default",
@@ -3755,6 +3755,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\imageBD\\842585.jpg"
+    },
+    {
+      "Identity": "E:\\CICLO VIII\\CALIDAD Y PRUEBAS DE SOFTWARE\\PROYECTO FINAL\\GAMMAFEST\\GAMMAFEST\\wwwroot\\imageBD\\image.jpg",
+      "SourceId": "GAMMAFEST",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\CICLO VIII\\CALIDAD Y PRUEBAS DE SOFTWARE\\PROYECTO FINAL\\GAMMAFEST\\GAMMAFEST\\wwwroot\\",
+      "BasePath": "_content/GAMMAFEST",
+      "RelativePath": "imageBD/image.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\imageBD\\image.jpg"
+    },
+    {
+      "Identity": "E:\\CICLO VIII\\CALIDAD Y PRUEBAS DE SOFTWARE\\PROYECTO FINAL\\GAMMAFEST\\GAMMAFEST\\wwwroot\\imageQR\\QRnumber1.png",
+      "SourceId": "GAMMAFEST",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\CICLO VIII\\CALIDAD Y PRUEBAS DE SOFTWARE\\PROYECTO FINAL\\GAMMAFEST\\GAMMAFEST\\wwwroot\\",
+      "BasePath": "_content/GAMMAFEST",
+      "RelativePath": "imageQR/QRnumber1.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\imageQR\\QRnumber1.png"
     },
     {
       "Identity": "E:\\CICLO VIII\\CALIDAD Y PRUEBAS DE SOFTWARE\\PROYECTO FINAL\\GAMMAFEST\\GAMMAFEST\\wwwroot\\js\\site.js",

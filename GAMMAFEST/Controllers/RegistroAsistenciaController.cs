@@ -25,32 +25,6 @@ namespace GAMMAFEST.Controllers
             this.entradaRepositorio = entradaRepositorio;
         }
 
-        public string SubirArchivo(RegistroAsistencia qr)
-        {
-            string? nArchivo = null;
-            string? temp1 = null;
-            if (qr.ArchivoImagen != null)
-            {
-                string path = _hostEnvironment.WebRootPath;
-                nArchivo = Path.GetFileNameWithoutExtension(qr.ArchivoImagen.FileName);
-                string x = Path.GetExtension(qr.ArchivoImagen.FileName);
-                qr.NombreImagen = nArchivo + x;
-                temp1 = nArchivo + x;
-                string z = Path.Combine(path + "/imageQR/", nArchivo + x);
-
-                if (!Directory.Exists(path + "/imageQR"))
-                {
-                    Directory.CreateDirectory(path + "/imageQR");
-                }
-
-                using (var fileStream = new FileStream(z, FileMode.Create))
-                {
-                    qr.ArchivoImagen.CopyTo(fileStream);
-                }
-            }
-            return temp1;
-        }
-
         public IActionResult LeerQR()
         {
 
@@ -63,22 +37,17 @@ namespace GAMMAFEST.Controllers
         {
             if (ModelState.IsValid)
             {
-                qr.NombreImagen = SubirArchivo(qr);
+                qr.NombreImagen = repositorio.SubirArchivo(qr);
 
                 var path = _hostEnvironment.WebRootPath;
 
                 var fullPath = path + "\\imageQR\\"+qr.NombreImagen;
 
-                string s = Lectura(fullPath);
+                string s = repositorio.Lectura(fullPath);
 
                 string[] subs = s.Split('~');
 
                 var ticketId = subs[0].Remove(0, 13);
-
-
-                /*var txtEvento = subs[2].Remove(0, 7).Replace("_", " ");
-
-                var txtUsuario = subs[3].Remove(0, 10).Replace("_", " ");*/
 
                 qr.EntradaId = int.Parse(ticketId);
 
@@ -122,14 +91,6 @@ namespace GAMMAFEST.Controllers
 
             }
             return View(qr);
-        }
-
-
-        public string Lectura(string archivo)
-        {
-            BarcodeResult QRResult = BarcodeReader.QuicklyReadOneBarcode(archivo);
-
-            return QRResult.ToString();
         }
 
         [HttpGet]

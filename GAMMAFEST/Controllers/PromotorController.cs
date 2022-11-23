@@ -10,10 +10,11 @@ namespace GAMMAFEST.Controllers
     public class PromotorController : Controller
     {
         private IPromotorRepositorio rep;
-
-        public PromotorController(IPromotorRepositorio rep)
+        private IEventoRepositorio eventoRepositorio;
+        public PromotorController(IPromotorRepositorio rep, IEventoRepositorio eventoRepositorio)
         {
             this.rep = rep;
+            this.eventoRepositorio = eventoRepositorio;
         }
 
         //REGISTRO DE PROMOTORES
@@ -86,7 +87,7 @@ namespace GAMMAFEST.Controllers
             var user = rep.GetLoggedUser();
             if (user != null)
             {
-                var eventos = rep.ConteoEventoByUserId(user.IdUser);
+                var eventos = eventoRepositorio.ObtenerTodosEventosByUserId(user.IdUser).Count();
                 ViewBag.eventos = eventos;
                 ViewBag.nombre = user.Nombre;
                 ViewBag.apellido = user.Apellido;

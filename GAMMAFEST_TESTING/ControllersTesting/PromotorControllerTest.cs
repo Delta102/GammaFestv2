@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using SixLabors.ImageSharp;
+using System.IO;
 using System.Security.Claims;
 
 namespace GAMMAFEST_TESTING.ControllersTesting
@@ -16,14 +17,23 @@ namespace GAMMAFEST_TESTING.ControllersTesting
     {
         PromotorController controller;
         PromotorRepositorio eRepositorio;
+        EventoRepositorio eventoRepositorio;
 
-        IQueryable lista;
+        IQueryable lista, listaEvento;
         string password = "TestPass";
         string testPrueba;
         byte[] pass;
 
         [SetUp]
         public void Setup() {
+            var content = "Hello World from a Fake File";
+            var fileName = "image.jpg";
+            var stream = new MemoryStream();
+            var writer = new StreamWriter(stream);
+            writer.Write(content);
+            writer.Flush();
+            stream.Position = 0;
+
             testPrueba = HelperCryptography.GenerateSalt();
             pass = HelperCryptography.EncriptarPassword(password, testPrueba);
             lista = new List<UserPromotor>
@@ -59,6 +69,67 @@ namespace GAMMAFEST_TESTING.ControllersTesting
             var mock = new Mock<ContextoDb>();
             mock.Setup(o => o.UserPromotor).Returns(mockUser.Object);
 
+
+            listaEvento = new List<Evento>()
+            {
+                new Evento{
+                    IdUser = 1,
+                    NombreEvento = "TestEvento",
+                    AforoMaximo = 18,
+                    NombreImagen = "image.jpg",
+                    Descripcion = "Evento Test",
+                    EventoId = 1,
+                    ArchivoImagen = new FormFile (stream, 0, stream.Length, "id_from_form", fileName),
+                    FechaInicioEvento = new DateTime(2022, 10,18),
+                    Protocolos = "Protocolos Evento Test",
+                    PrecioEntradaUnit = 10,
+                    UserPromotor =new UserPromotor{
+                        IdUser = 1,
+                        Email = "test@test.pe",
+                        Nombre = "Test",
+                        Apellido = "Test2",
+                        Cifrado = testPrueba,
+                        Contrasenia = HelperCryptography.EncriptarPassword("TestPass", testPrueba),
+                        tipoUsuario="ADMIN"
+                    }
+                },
+
+                new Evento{
+                    IdUser = 1,
+                    NombreEvento = "TestEvento2",
+                    AforoMaximo = 3,
+                    NombreImagen = "image.jpg",
+                    Descripcion = "Evento Test2",
+                    PrecioEntradaUnit = 10,
+                    EventoId = 2,
+                    FechaInicioEvento = new DateTime(2022, 10,18),
+                    Protocolos = "Protocolos Evento Test"
+                },
+
+                new Evento{
+                    IdUser = 1,
+                    NombreEvento = "TestEvento3",
+                    AforoMaximo = 3,
+                    NombreImagen = "image.jpg",
+                    Descripcion = "Evento Test3",
+                    EventoId = 3,
+                    FechaInicioEvento = new DateTime(2022, 10,18),
+                    Protocolos = "Protocolos Evento Test",
+                    PrecioEntradaUnit = 10
+                },
+            }.AsQueryable();
+
+            var mockEvento = new Mock<DbSet<Evento>>();
+            mockEvento.As<IQueryable<Evento>>().Setup(o => o.Provider).Returns(listaEvento.Provider);
+            mockEvento.As<IQueryable<Evento>>().Setup(o => o.Expression).Returns(listaEvento.Expression);
+            mockEvento.As<IQueryable<Evento>>().Setup(o => o.ElementType).Returns(listaEvento.ElementType);
+            mockEvento.As<IQueryable<Evento>>().Setup(o => o.GetEnumerator()).Returns((IEnumerator<Evento>)listaEvento.GetEnumerator());
+
+            var mockEventoDb = new Mock<ContextoDb>();
+            mockEventoDb.Setup(o => o.Evento).Returns(mockEvento.Object);
+
+            eventoRepositorio = new EventoRepositorio(mockEventoDb.Object);
+
             var mockClaimsPrincipal = new Mock<ClaimsPrincipal>();
             mockClaimsPrincipal.Setup(o => o.Claims).Returns(new List<Claim> { new Claim(ClaimTypes.Name, "User1") });
             var mockContext = new Mock<IHttpContextAccessor>();
@@ -66,7 +137,7 @@ namespace GAMMAFEST_TESTING.ControllersTesting
 
             eRepositorio = new PromotorRepositorio(mock.Object, mockContext.Object);
 
-            controller = new PromotorController(eRepositorio);
+            controller = new PromotorController(eRepositorio, eventoRepositorio);
         }
 
         //PRUEBAS CON EL CONTROLADOR
@@ -97,7 +168,7 @@ namespace GAMMAFEST_TESTING.ControllersTesting
         [Test]
         public void LoginFailTest()
         {
-            var controller = new PromotorController(eRepositorio);
+            var controller = new PromotorController(eRepositorio, eventoRepositorio);
             var result = controller.Login("Usertest@user.pe", password + "asd");
             Assert.That(controller.ViewData["MENSAJE"], Is.EqualTo("No tienes credenciales correctas"));
             Assert.IsInstanceOf<Task<IActionResult>>(result);

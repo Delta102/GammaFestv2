@@ -6,33 +6,28 @@ using GAMMAFEST.Repositorio;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Build.Framework;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.Internal;
-using Microsoft.Extensions.Hosting;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GAMMAFEST_TESTING.ControllersTesting
 {
-    public class EntradaControllerTest
+    public class RegistroAsistenciaTest
     {
-        EntradaController controller;
+        RegistroAsistenciaController controller;
 
+        RegistroAsistenciaRepositorio registroRepositorio;
         EventoRepositorio eventoRepositorio;
         PromotorRepositorio promotorRepositorio;
         EntradaRepositorio entradaRepositorio;
 
 
-        IQueryable lista1, lista2, lista3;
+        IQueryable lista1, lista2, lista3, lista4;
 
         string password = "TestPass";
         string testPrueba;
@@ -42,6 +37,34 @@ namespace GAMMAFEST_TESTING.ControllersTesting
         public void Setup()
         {
             testPrueba = HelperCryptography.GenerateSalt();
+
+            lista4 = new List<RegistroAsistencia>() {
+                new RegistroAsistencia{
+                    Id = 1,
+                    NombreImagen = "image.jpg",
+                    EntradaId= 1
+                },
+
+                new RegistroAsistencia{
+                    Id = 2,
+                    NombreImagen = "image2.jpg",
+                    EntradaId= 1
+                }
+            }.AsQueryable();
+
+            var mockRegistro = new Mock<DbSet<RegistroAsistencia>>();
+            mockRegistro.As<IQueryable<RegistroAsistencia>>().Setup(o => o.Provider).Returns(lista4.Provider);
+            mockRegistro.As<IQueryable<RegistroAsistencia>>().Setup(o => o.Expression).Returns(lista4.Expression);
+            mockRegistro.As<IQueryable<RegistroAsistencia>>().Setup(o => o.ElementType).Returns(lista4.ElementType);
+            mockRegistro.As<IQueryable<RegistroAsistencia>>().Setup(o => o.GetEnumerator()).Returns((IEnumerator<RegistroAsistencia>)lista4.GetEnumerator());
+            var mockAsistencia = new Mock<ContextoDb>();
+            mockAsistencia.Setup(o => o.RegistroAsistencia).Returns(mockRegistro.Object);
+
+
+            var webHostMock = new Mock<IWebHostEnvironment>();
+            webHostMock.Setup(x => x.WebRootPath).Returns("asd");
+
+            registroRepositorio = new RegistroAsistenciaRepositorio(mockAsistencia.Object, webHostMock.Object);
 
             lista1 = new List<Evento>()
             {
@@ -100,11 +123,6 @@ namespace GAMMAFEST_TESTING.ControllersTesting
             mockEvento.As<IQueryable<Evento>>().Setup(o => o.GetEnumerator()).Returns((IEnumerator<Evento>)lista1.GetEnumerator());
             var mock = new Mock<ContextoDb>();
             mock.Setup(o => o.Evento).Returns(mockEvento.Object);
-
-            var webHostMock = new Mock<IWebHostEnvironment>();
-            webHostMock.Setup(x => x.WebRootPath).Returns("asdf");
-            
-
 
             eventoRepositorio = new EventoRepositorio(mock.Object);
 
@@ -251,122 +269,63 @@ namespace GAMMAFEST_TESTING.ControllersTesting
 
             entradaRepositorio = new EntradaRepositorio(mock3.Object);
 
-            controller = new EntradaController(promotorRepositorio, entradaRepositorio, webHostMock.Object, eventoRepositorio);
+            controller = new RegistroAsistenciaController(registroRepositorio,webHostMock.Object , promotorRepositorio, eventoRepositorio, entradaRepositorio);
         }
 
+        //CONTROLADOR TEST
+
         [Test]
-        public void VentaEntradaTest() {
-            var direccion = controller.VentaEntrada(new Entrada
+        public void ListaAsistentesTest() {
+            var result = controller.ListaAsistentes(1) as ViewResult;
+            Assert.IsInstanceOf<List<RegistroAsistencia>>(result.Model);
+        }
+
+
+        //REPOSITORIO TEST
+        [Test]
+        public void ListaAsistentesRepositorioTest()
+        {
+            var listaEntradas = new List<Entrada>()
             {
-                EntradaId = 2,
-                IdUser = 1,
-                CantidadEntradas = 4,
-                IdCantidad = 1,
-                EventoId = 1,
-                PrecioTotal = 33,
-                TextoQR = "Test",
-            }, 1, 1);
-
-            var result = controller.VentaEntrada(1, 4);
-            var result2 = controller.VentaEntrada(1, 1);
-            
-
-            Assert.IsInstanceOf<ViewResult>(result2);
-            Assert.IsInstanceOf<RedirectToActionResult>(result);
-            Assert.IsInstanceOf<RedirectToActionResult>(direccion);
-        }
-
-        [Test]
-        public void HistorialController() {
-            var result = controller.HistorialEntrada(1);
-            Assert.IsInstanceOf<ViewResult>(result);
-        }
-
-        [Test]
-        public void HistorialControllerCantidad()
-        {
-            var result = controller.HistorialCantidad(1, 1);
-            Assert.IsInstanceOf<ViewResult>(result);
-        }
-
-        [Test]
-        public void SoldOutControllerTest()
-        {
-            var result = controller.VentaEntrada(1, 1);
-            var direccion = controller.VentaEntrada(1,4) as RedirectToActionResult;
-
-            var solOut = controller.SoldOut();
-            Assert.IsInstanceOf<ViewResult>(result);
-            Assert.IsNotNull(solOut);
-            Assert.That(direccion.ActionName, Is.EqualTo("SoldOut"));
-        }
-
-
-
-        //REPOSITORIO
-        [Test]
-        public void ConteoEntradaTest()
-        {
-            var result = entradaRepositorio.ConteoEntrada();
-            Assert.That(result, Is.EqualTo(5));
-        }
-
-        [Test]
-        public void HistorialEntradaTest() {
-            var result = entradaRepositorio.HistorialEntradas(1);
-            Assert.That(result.Count(), Is.EqualTo(1));
-        }
-
-        [Test]
-        public void HistorialCantidadTest() {
-            var result = entradaRepositorio.HistorialCantidad(1,1);
-            Assert.That(result.Count(), Is.EqualTo(4));
-            
-        }
-
-        [Test]
-        public void ConteoEntradaByEventoId() {
-            var result = entradaRepositorio.ConteoEntradaByEventoId(1);
-            Assert.That(result, Is.EqualTo(4));
-        }
-
-        [Test]
-        public void EntradaConNombreEventoTest() {
-            var result = entradaRepositorio.EntradaconNombreEvento(2);
-            Assert.That(result[0].Evento.NombreEvento, Is.EqualTo("TestEvento2"));
-        }
-
-        [Test]
-        public void ObtenerEntradaTest()
-        {
-            var result = entradaRepositorio.ObtenerEntrada(1);
-            Assert.That(result.EntradaId, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void ObtenerEntradasByEventoIdTest()
-        {
-            var result = entradaRepositorio.ObtenerEntradasByEventoId(1);
-            Assert.That(result.Count(), Is.EqualTo(4));
-        }
-        /*[Test]
-        public void QRTest()
-        {
-            var texto = "Nombres: Felix\n Apellidos: Peralta Evento: 1 Nombre del Evento: TestEvento";
-
-            var entradaTemp = new Entrada
-            {
-                PrecioTotal = 45,
-                TextoQR = texto,
-                EventoId = 1,
-                IdUser = 1,
-                CantidadEntradas = 5,
-                IdCantidad = 1
+                 new Entrada {
+                    IdCantidad=1,
+                    IdUser=1,
+                    EntradaId=1,
+                    CantidadEntradas=4,
+                    EventoId=1
+                },
+                new Entrada {
+                    IdCantidad=1,
+                    IdUser=1,
+                    EntradaId=2,
+                    CantidadEntradas=4,
+                    EventoId=1
+                },
+                new Entrada {
+                    IdCantidad=5,
+                    IdUser=2,
+                    EntradaId=3,
+                    CantidadEntradas=3,
+                    EventoId=2
+                },
             };
 
-            var mock = new Mock<IEntradaRepositorio>();
-            mock.Setup(x=>x.generarQR(It.IsAny<Entrada>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Throws<InvalidOperationException("No se creó el QR")>;
-            mock.Verify(x=>x.generarQR(It.IsAny<Entrada>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()));
-        }*/
+
+            var result = registroRepositorio.ListarAsistentes(listaEntradas);
+            Assert.That(1, Is.EqualTo(result[0].Id));
+        }
+
+        [Test]
+        public void ObtenerRegistroTest() {
+            var result = registroRepositorio.ObtenerRegistro(1);
+            Assert.That(1, Is.EqualTo(result.Id));
+        }
+
+        [Test]
+        public void ObtenerTodosRegistrosTest()
+        {
+            var result = registroRepositorio.registros();
+            Assert.That(2, Is.EqualTo(result[1].Id));
+        }
     }
 }

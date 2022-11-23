@@ -72,7 +72,7 @@ namespace GAMMAFEST_TESTING.ControllersTesting
                     Descripcion = "Evento Test2",
                     PrecioEntradaUnit = 10,
                     EventoId = 2,
-                    FechaInicioEvento = new DateTime(2022, 10,18),
+                    FechaInicioEvento = new DateTime(2022, 11,24),
                     Protocolos = "Protocolos Evento Test"
                 },
 
@@ -167,8 +167,12 @@ namespace GAMMAFEST_TESTING.ControllersTesting
 
         [Test]
         public void ListarEventosbyUserIdControllerTest() {
-            var result = controller.ListarEventos(1, 1) as ViewResult;
-            Assert.IsInstanceOf<IEnumerable<Evento>>(result.Model);
+            var resultCase1 = controller.ListarEventos(1, 1) as ViewResult;
+            var resultCase2 = controller.ListarEventos(2, 1) as ViewResult;
+            var resultCase3 = controller.ListarEventos(3, 1) as ViewResult;
+            Assert.IsInstanceOf<IEnumerable<Evento>>(resultCase1.Model);
+            Assert.IsInstanceOf<IEnumerable<Evento>>(resultCase2.Model);
+            Assert.IsInstanceOf<IEnumerable<Evento>>(resultCase3.Model);
         }
 
 
@@ -199,6 +203,17 @@ namespace GAMMAFEST_TESTING.ControllersTesting
         {
             var result= eRepositorio.ObtenerSoloEventoConPromotor(1);
             Assert.That(result.UserPromotor.Email, Is.EqualTo("test@test.pe"));
+        }
+
+        [Test]
+        public void ObtenerTodosEventosByUserIdPasadosTest()
+        {
+            var result = eRepositorio.ObtenerTodosEventosByUserIdPasados(1, 1);
+            var result2 = eRepositorio.ObtenerTodosEventosByUserIdPasados(1, 2);
+            var result3 = eRepositorio.ObtenerTodosEventosByUserIdPasados(1, 3);
+            Assert.That(result.Count, Is.EqualTo(2));
+            Assert.That(result2.Count, Is.EqualTo(0));
+            Assert.That(result3.Count, Is.EqualTo(1));
         }
     }
 }
