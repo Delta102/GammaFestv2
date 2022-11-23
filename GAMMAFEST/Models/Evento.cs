@@ -19,9 +19,6 @@ namespace GAMMAFEST.Models
         public float AforoMaximo { get; set; }
         public float PrecioEntradaUnit { get; set; }
         
-        //Agregar aforo máximo de personas
-        //Agregar lista de asistentas
-        //Agregar sistema de venta de entradas
         [ForeignKey("IdUser")]
         public virtual UserPromotor? UserPromotor { get; set; }
     }

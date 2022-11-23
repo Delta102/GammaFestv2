@@ -1,0 +1,129 @@
+﻿@model GAMMAFEST.Models.RegistroAsistencia
+@{
+    ViewData["Title"] = "LeerQr";
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>LeerQr</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <!--<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/css/dist/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/fonts/font-awesome-4.7.0/css/font-awesome.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+
+    <div class="limiter">
+        <div class="container-login100">
+            <span class="wrap-login100">
+                <div class="login100-pic js-tilt" data-tilt>
+                    <img src="~/image/logo_black.png" alt="IMG">
+
+                    @if (ViewData["MENSAJE"] != null)
+                    {
+                        <br>
+                        <br>
+                        @if (ViewData["MENSAJE"] == "Felicidades, la asistencia fue registrada con éxito")
+                        {
+                            <div class="alert alert alert-Success alert-dismissible fade show" role="alert">
+                                @ViewData["MENSAJE"]
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="alert alert alert-danger alert-dismissible fade show" role="alert">
+                                @ViewData["MENSAJE"]
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        }
+                    }
+
+                </div>
+                <form class="login100-form validate-form" method="post" id="account" enctype="multipart/form-data">
+                    <span class="login100-form-title">
+                        GAMMA-FEST
+                    </span>
+
+                    <span class="login100-form-title">
+                        Registrar Evento
+                    </span>
+
+                    <div class="wrap-input100 validate-input">
+                        <input asp-for="ArchivoImagen"  class="input100" accept="image/*" />
+                        <span asp-validation-for="ArchivoImagen" class="text-danger"></span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <div class="form-group">
+                            <button type="submit" id="create" class="cta3">Continuar</button>
+                        </div>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <table class="table mb-0">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        # de Ticket: 
+                                    </th>
+                                    <th>
+                                        Evento: 
+                                    </th>
+                                    <th>
+                                        Usuario
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @ViewBag.ticket
+                                    </td>
+                                    <td>
+                                        @ViewBag.evento
+                                    </td>
+                                    <td>
+                                        @ViewBag.usuario
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <input type="hidden" asp-for="NombreImagen" value="a1" />
+                    <input type="hidden" asp-for="EntradaId" value="1" />
+                    <!--<input type="hidden" asp-for="EventoId" value="1" />-->
+                    <!--<input type="hidden" asp-for="IdUser" value="1" />-->
+
+                    <div>
+                        <a asp-controller="Home" asp-action="Index">
+                            Regresar
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

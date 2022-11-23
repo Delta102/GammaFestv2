@@ -7,7 +7,6 @@ namespace GAMMAFEST.Controllers
 {
     public class HomeController : Controller
     {
-        bool temp = false;
         public readonly IEventoRepositorio repositorio;
         public readonly IPromotorRepositorio rep;
 

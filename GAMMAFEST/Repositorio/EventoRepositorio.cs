@@ -1,18 +1,6 @@
 ﻿using GAMMAFEST.Data;
 using GAMMAFEST.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace GAMMAFEST.Repositorio
 {
@@ -20,6 +8,7 @@ namespace GAMMAFEST.Repositorio
     {
         IEnumerable<Evento> ObtenerTodosEventos();
         IEnumerable<Evento> ObtenerTodosEventosByUserId(int id);
+        List<Evento> ObtenerTodosEventosByUserIdPasados(int id, int temp);
         Evento ObtenerSoloEvento(int id);
         Evento ObtenerSoloEventoConPromotor(int id);
         void CrearEvento(Evento evento);
@@ -39,7 +28,21 @@ namespace GAMMAFEST.Repositorio
 
         public IEnumerable<Evento> ObtenerTodosEventosByUserId(int id)
         {
-            return _context.Evento.Where(o=>o.IdUser == id);
+            return _context.Evento.Include(o => o.UserPromotor).Where(o=>o.IdUser == id);
+        }
+
+        public List<Evento> ObtenerTodosEventosByUserIdPasados(int id, int temp)
+        {
+            if (temp == 1)
+                return _context.Evento.Where(u=>u.FechaInicioEvento < DateTime.Now).Where(u=>u.IdUser == id).ToList();
+
+            if (temp == 2)
+                    return _context.Evento.Where(u => u.FechaInicioEvento >= DateTime.Now && u.FechaInicioEvento <= DateTime.Now.AddMinutes(30)).Where(u => u.IdUser == id).ToList();
+
+            if (temp == 3)
+                return _context.Evento.Where(u => u.FechaInicioEvento > DateTime.Now.AddMinutes(30)).Where(u => u.IdUser == id).ToList();
+
+            return null;
         }
 
         public Evento ObtenerSoloEvento(int id)

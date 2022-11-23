@@ -79,14 +79,33 @@ namespace GAMMAFEST.Controllers
 
                 return RedirectToAction("Index", "Home", new {id=promotor.IdUser});
             }
-
         }
         [HttpGet]
         public IActionResult Init()
         {
-            ViewBag.perfil = rep.GetLoggedUser();
+            var user = rep.GetLoggedUser();
+            if (user != null)
+            {
+                var eventos = rep.ConteoEventoByUserId(user.IdUser);
+                ViewBag.eventos = eventos;
+                ViewBag.nombre = user.Nombre;
+                ViewBag.apellido = user.Apellido;
+                ViewBag.mail = user.Email;
+                ViewBag.idUser = user.IdUser;
+
+
+                if (user.tipoUsuario == "ADMIN")
+                    ViewBag.tipo = "PROMOTOR";
+
+                else
+                    ViewBag.tipo = "USUARIO";
+            }
+
+
+            
 
             return View();
+
         }
 
         public async Task<IActionResult> LogOut()

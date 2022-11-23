@@ -17,35 +17,10 @@ namespace GAMMAFEST.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "7.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("GAMMAFEST.Models.Blog", b =>
-                {
-                    b.Property<int>("IdBlog")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdBlog"), 1L, 1);
-
-                    b.Property<string>("DescripcionBlog")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("IdUser")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("PublicacionBlog")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("IdBlog");
-
-                    b.HasIndex("IdUser");
-
-                    b.ToTable("Blog");
-                });
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("GAMMAFEST.Models.Comentario", b =>
                 {
@@ -53,7 +28,7 @@ namespace GAMMAFEST.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdComentario"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdComentario"));
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -83,7 +58,7 @@ namespace GAMMAFEST.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EntradaId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EntradaId"));
 
                     b.Property<int>("CantidadEntradas")
                         .HasColumnType("int");
@@ -117,7 +92,7 @@ namespace GAMMAFEST.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventoId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventoId"));
 
                     b.Property<float>("AforoMaximo")
                         .HasColumnType("real");
@@ -154,13 +129,35 @@ namespace GAMMAFEST.Migrations
                     b.ToTable("Evento");
                 });
 
+            modelBuilder.Entity("GAMMAFEST.Models.RegistroAsistencia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EntradaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NombreImagen")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EntradaId");
+
+                    b.ToTable("RegistroAsistencia");
+                });
+
             modelBuilder.Entity("GAMMAFEST.Models.UserPromotor", b =>
                 {
                     b.Property<int>("IdUser")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdUser"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdUser"));
 
                     b.Property<string>("Apellido")
                         .IsRequired()
@@ -189,15 +186,6 @@ namespace GAMMAFEST.Migrations
                     b.HasKey("IdUser");
 
                     b.ToTable("UserPromotor");
-                });
-
-            modelBuilder.Entity("GAMMAFEST.Models.Blog", b =>
-                {
-                    b.HasOne("GAMMAFEST.Models.UserPromotor", "UserPromotor")
-                        .WithMany()
-                        .HasForeignKey("IdUser");
-
-                    b.Navigation("UserPromotor");
                 });
 
             modelBuilder.Entity("GAMMAFEST.Models.Comentario", b =>
@@ -235,6 +223,17 @@ namespace GAMMAFEST.Migrations
                         .IsRequired();
 
                     b.Navigation("UserPromotor");
+                });
+
+            modelBuilder.Entity("GAMMAFEST.Models.RegistroAsistencia", b =>
+                {
+                    b.HasOne("GAMMAFEST.Models.Entrada", "Entrada")
+                        .WithMany()
+                        .HasForeignKey("EntradaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Entrada");
                 });
 #pragma warning restore 612, 618
         }

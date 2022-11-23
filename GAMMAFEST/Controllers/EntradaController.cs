@@ -1,18 +1,6 @@
 ﻿using GAMMAFEST.Models;
 using GAMMAFEST.Repositorio;
-using IronBarCode;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using QRCoder;
-using System.Drawing;
-using System.Runtime.InteropServices;
-using System;
-using System.Drawing.Imaging;
-using System.IO;
-using Microsoft.IdentityModel.Tokens;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Drawing;
-using Path = System.IO.Path;
 
 namespace GAMMAFEST.Controllers
 {
@@ -81,6 +69,7 @@ namespace GAMMAFEST.Controllers
                 entrada.PrecioTotal = (int)montoTotal;
                 entrada.TextoQR = "Nombres: " + user.Nombre + "\n Apellidos: " + user.Apellido + " Evento: " + evento.EventoId + " Nombre del Evento: " + evento.NombreEvento;
 
+
                 //Añadir Información
 
                 for (int i = 0; i < entrada.CantidadEntradas; i++)
@@ -96,12 +85,14 @@ namespace GAMMAFEST.Controllers
                     repositorioEntrada.CrearEntrada(entradaTemp);
 
                     var webPath = _hostEnvironment.WebRootPath;
-
-                    repositorioEntrada.generarQR(entradaTemp, evento.NombreEvento, user.Nombre, webPath.ToString());
+                    
+                    repositorioEntrada.generarQR(entradaTemp, evento, user, webPath.ToString());
                 }
                 //CORREGIR SISTEMA DE ENTRADAS
                 //repositorioEntrada.CrearEntrada(entrada, entrada.CantidadEntradas);
                 return RedirectToAction("HistorialCantidad", "Entrada", new {id = idUser, idCant = entrada.IdCantidad});
+
+                
             }
             else
                 return View(entrada);

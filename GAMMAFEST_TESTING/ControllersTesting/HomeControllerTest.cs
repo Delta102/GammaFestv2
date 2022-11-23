@@ -137,7 +137,7 @@ namespace GAMMAFEST_TESTING.ControllersTesting
             //CLAIMS
 
             var mockClaimsPrincipal = new Mock<ClaimsPrincipal>();
-            mockClaimsPrincipal.Setup(o => o.Claims).Returns(new List<Claim> { new Claim(ClaimTypes.Name, "User1") });
+            mockClaimsPrincipal.Setup(o => o.Claims).Returns(new List<Claim> { new Claim(ClaimTypes.Name, "UserTest") });
             var mockContext = new Mock<IHttpContextAccessor>();
             mockContext.Setup(o => o.HttpContext.User).Returns(mockClaimsPrincipal.Object);
 
@@ -150,11 +150,12 @@ namespace GAMMAFEST_TESTING.ControllersTesting
         public void IndexTest() {
 
             var mockClaimsPrincipal = new Mock<ClaimsPrincipal>();
-            mockClaimsPrincipal.Setup(o => o.Claims).Returns(new List<Claim> { new Claim(ClaimTypes.Name, "User1") });
+            mockClaimsPrincipal.Setup(o => o.Claims).Returns(new List<Claim> { new Claim(ClaimTypes.Name, "User") });
             var mockContext = new Mock<HttpContext>();
             mockContext.Setup(o => o.User).Returns(mockClaimsPrincipal.Object);
 
             var result = homeController.Index() as ViewResult;
+
             Assert.IsNotNull(result);
         }
 

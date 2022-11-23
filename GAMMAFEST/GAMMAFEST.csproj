@@ -56,19 +56,25 @@
     <PackageReference Include="BarCode" Version="2022.9.8982" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.10">
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
-    <PackageReference Include="QRCoder" Version="1.4.3" />
-    <PackageReference Include="ZXing.Net" Version="0.16.8" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\css\NewFolder\" />
     <Folder Include="wwwroot\GeneratedQRCode\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\RegistroAsistencia\LeerQR.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

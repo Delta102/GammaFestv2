@@ -9,12 +9,15 @@ namespace GAMMAFEST.Repositorio
     public interface IEntradaRepositorio {
         void CrearEntrada(Entrada entrada);
         //void GuardarEnlace(Qr qr);
+        Entrada ObtenerEntrada(int id);
         IEnumerable<Entrada> HistorialEntradas(int id);
         IEnumerable<Entrada> HistorialCantidad(int id, int idCant);
+        List<Entrada> ObtenerEntradasByEventoId(int idEvento);
         int ConteoEntrada();
         int ConteoEntradaByEventoId(int id);
-        void generarQR(Entrada entrada, string nom, string user, string webPath);
+        void generarQR(Entrada entrada, Evento evento, UserPromotor user, string webPath);
     }
+
     public class EntradaRepositorio: IEntradaRepositorio
     {
         public readonly ContextoDb _context;
@@ -54,29 +57,28 @@ namespace GAMMAFEST.Repositorio
             return lista;
         }
 
-        public void generarQR(Entrada entrada, string nombreEvento, string userName, string webPath)
+        public void generarQR(Entrada entrada, Evento evento, UserPromotor user,  string webPath)
         {
-            try
+            var txtQR = "#_de_Ticket:_" + entrada.EntradaId + "~_Nombre_de_Evento:_" + evento.NombreEvento + "~_Id_de_Evento:_" + evento.EventoId+ "~_Usuario:_" + user.Nombre + "~_Id_de_Usuario:_" + user.IdUser;
+
+            var qr = QRCodeWriter.CreateQrCode(txtQR);
+
+            string path = Path.Combine(webPath, "GeneratedQRCode");
+            if (!Directory.Exists(path))
             {
-
-                var txtQR = "# de Ticket: " + entrada.EntradaId + "\nNombre de Evento: " + nombreEvento + "\nUsuario: " + userName;
-
-                //var logoPath = Path.Combine(webPath, "image", "logo_black_qrLogo.jpg");
-
-                var qr = QRCodeWriter.CreateQrCode(txtQR);
-
-                string path = Path.Combine(webPath, "GeneratedQRCode");
-                if (!Directory.Exists(path))
-                {
-                    Directory.CreateDirectory(path);
-                }
-                string filePath = Path.Combine(path, "qrcodev2" + entrada.EntradaId + ".png");
-                qr.SaveAsPng(filePath);
+                Directory.CreateDirectory(path);
             }
-            catch (Exception)
-            {
-                throw;
-            }
+            string filePath = Path.Combine(path, "QRnumber" + entrada.EntradaId + ".png");
+            qr.SaveAsPng(filePath);
+        }
+
+        public Entrada ObtenerEntrada(int id) {
+            return _context.Entrada.Single(u=>u.EntradaId == id);
+        }
+
+        public List<Entrada> ObtenerEntradasByEventoId(int idEvento)
+        {
+            return _context.Entrada.Where(u => u.EventoId == idEvento).ToList();
         }
     }
 }

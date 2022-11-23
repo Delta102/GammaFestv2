@@ -167,10 +167,9 @@ namespace GAMMAFEST_TESTING.ControllersTesting
 
         [Test]
         public void ListarEventosbyUserIdControllerTest() {
-            var result = controller.ListarEventos(1) as ViewResult;
+            var result = controller.ListarEventos(1, 1) as ViewResult;
             Assert.IsInstanceOf<IEnumerable<Evento>>(result.Model);
         }
-
 
 
         //MÉTODOS REPOSITORIOS

@@ -181,7 +181,29 @@ namespace GAMMAFEST_TESTING.ControllersTesting
                     IdUser=1,
                     EntradaId=2,
                     CantidadEntradas=4,
-                    EventoId=1
+                    EventoId=1,
+                    Evento = new Evento
+                    {
+                        IdUser = 1,
+                        NombreEvento = "TestEvento",
+                        AforoMaximo = 18,
+                        NombreImagen = "image.jpg",
+                        Descripcion = "Evento Test",
+                        EventoId = 1,
+                        FechaInicioEvento = new DateTime(2022, 10, 18),
+                        Protocolos = "Protocolos Evento Test",
+                        PrecioEntradaUnit = 10,
+                        UserPromotor = new UserPromotor
+                        {
+                            IdUser = 1,
+                            Email = "Usertest@user.pe",
+                            Nombre = "UserTest",
+                            Apellido = "UserTest",
+                            Cifrado = testPrueba,
+                            Contrasenia = pass,
+                            tipoUsuario = "USUARIO"
+                        }
+                    }
                 },
                 new Entrada {
                     IdCantidad=1,
@@ -235,24 +257,13 @@ namespace GAMMAFEST_TESTING.ControllersTesting
             var direccion = controller.VentaEntrada(new Entrada
             {
                 EntradaId = 2,
-                IdUser = 0,
+                IdUser = 1,
                 CantidadEntradas = 4,
                 IdCantidad = 1,
                 EventoId = 1,
                 PrecioTotal = 33,
-                TextoQR = "Texto QR Test",
+                TextoQR = "Test",
             }, 1, 1);
-
-            var fail=new Entrada
-            {
-                EntradaId = 1,
-                IdUser = 1,
-                CantidadEntradas = 4,
-            };
-
-
-            var mock = new Mock<IWebHostEnvironment>();
-            mock.Setup(x => x.WebRootPath).Returns("asd");
 
             var result = controller.VentaEntrada(1, 4);
             var result2 = controller.VentaEntrada(1, 1);

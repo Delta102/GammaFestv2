@@ -53,25 +53,36 @@
                                     <span class="navbar-toggler-icon"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="#">Inicio</a></li>
-                                    @if (ViewBag.estado == "USUARIO")
-                                    {
-                                        <li><a id="create_event" class="dropdown-item" asp-route-Id=@ViewBag.perfil asp-controller="Entrada" asp-action="HistorialEntrada">Historial de Pedidos</a></li>
-                                    }
-                                    @if (ViewBag.estado == "ADMIN")
-                                    {
-                                        <li><a id="create_event" class="dropdown-item" asp-route-Id=@ViewBag.perfil asp-controller="Evento" asp-action="ListarEventos">Administrar Eventos</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Inicio</a>
+                                    </li>
 
-                                        <li><a id="create_event" class="dropdown-item" asp-route-Id=@ViewBag.perfil asp-controller="Entrada" asp-action="HistorialEntrada">Historial de Pedidos</a></li>
-                                    }
+                                    <li>
+                                        <a id="perfil" class="dropdown-item" asp-controller="Promotor" asp-action="Init">
+                                            Mi Perfil
+                                        </a>
+                                    </li>
+
+                                    <li>
+                                        <a id="create_event" class="dropdown-item" asp-route-Id=@ViewBag.perfil asp-controller="Entrada" asp-action="HistorialEntrada">
+                                            Historial de Pedidos
+                                        </a>
+                                    </li>
                                     
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" asp-controller="Promotor" asp-action="LogOut" id="logout" type="submit">Cerrar Sesión</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Promotor" asp-action="LogOut" id="logout" type="submit">
+                                            Cerrar Sesión
+                                        </a>
+                                    </li>
                                 </ul>
                             </ol>
 
-                            <ol><p class="dropdown-item" style="color: white;">Bienvenido
-                                    <a asp-controller="Promotor" asp-action="Init" style="color: white;">@Context.User.Identity.Name!</a>
+                            <ol>
+                                <p class="dropdown-item" style="color: white;">
+                                    Bienvenido @Context.User.Identity.Name!
                                 </p>
                             </ol>
                         }

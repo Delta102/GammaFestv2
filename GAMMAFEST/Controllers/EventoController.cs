@@ -61,12 +61,14 @@ namespace GAMMAFEST.Controllers
                 else
                 {
                     evento.NombreImagen = SubirArchivo(evento);
+                    //evento.UserPromotor = promotorRepositorio.ObtenerUserById(id);
                     repositorio.CrearEvento(evento);
                     return RedirectToAction("Index", "Home");
                 }
             }
             return View(evento);
         }
+
         [AuthorizeUsers]
         [HttpGet]
         public IActionResult IndexEvento(int? id, int id2)
@@ -78,9 +80,18 @@ namespace GAMMAFEST.Controllers
 
 
         [HttpGet]
-        public IActionResult ListarEventos(int id) {
-            var list = repositorio.ObtenerTodosEventosByUserId(id);
-            ViewBag.id = id;
+        public IActionResult ListarEventos(int temp, int idUser) {
+            List<Evento> list = new List<Evento>();
+            switch (temp) {
+                case 1: list = repositorio.ObtenerTodosEventosByUserIdPasados(idUser, 1); break;
+
+                case 2: list = repositorio.ObtenerTodosEventosByUserIdPasados(idUser, 2); break;
+
+                case 3: list = repositorio.ObtenerTodosEventosByUserIdPasados(idUser, 3); break;
+            }
+
+            ViewBag.temp = temp;
+            ViewBag.id = idUser;
             return View(list);
         }
     }

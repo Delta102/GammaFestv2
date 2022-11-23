@@ -27,6 +27,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IEntradaRepositorio, EntradaRepositorio>();
 builder.Services.AddTransient<IEventoRepositorio, EventoRepositorio>();
 builder.Services.AddTransient<IPromotorRepositorio, PromotorRepositorio>();
+builder.Services.AddTransient<IRegistroAsistenciaRepositorio, RegistroAsistenciaRepositorio>();
 
 
 //Autenticación

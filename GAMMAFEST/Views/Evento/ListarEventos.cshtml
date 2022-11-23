@@ -4,74 +4,99 @@
     ViewData["Title"] = "ListarEventos";
 }
 
-<h1>ListarEventos</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Listado de Eventos</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<!--<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/css/dist/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/fonts/font-awesome-4.7.0/css/font-awesome.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="~/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="~/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/css/util.css">
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	<div class="limiter">
+		<div class="container-login100">
+            <div class="wrap-login100">
 
-<p>
-    <a asp-controller="Evento" asp-action="CrearEvento" asp-route-Id="@ViewBag.id">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaInicioEvento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NombreEvento)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NombreImagen)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Protocolos)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AforoMaximo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PrecioEntradaUnit)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserPromotor)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaInicioEvento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreEvento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NombreImagen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descripcion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Protocolos)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AforoMaximo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PrecioEntradaUnit)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserPromotor.IdUser)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.EventoId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EventoId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EventoId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                <div style="position: relative;
+  top: -100px;">
+                    <a type="button" class="btn btn-dark" asp-controller="Evento" asp-action="CrearEvento" asp-route-Id="@ViewBag.id">Agregar un Nuevo Evento</a>
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th>
+                                    #
+                                </th>
+                                <th>
+                                    FECHA
+                                </th>
+                                <th>
+                                    EVENTO
+                                </th>
+                                <th>
+                                    AFORO
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.EventoId
+                                    </td>
+                                    <td>
+                                        @item.FechaInicioEvento
+                                    </td>
+                                    <td>
+                                        @item.NombreEvento
+                                    </td>
+                                    <td>
+                                        @item.AforoMaximo
+                                    </td>
+                                    <td>
+                                        @if (ViewBag.temp == 1)
+                                        {
+                                            <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.EventoId">Eliminar</a>
+                                            <a asp-action="ListaAsistentes" asp-controller="RegistroAsistencia" class=" btn btn-dark" asp-route-idEvento="@item.EventoId">Ver Lista de asistentes</a>
+                                        }
+                                        @if (ViewBag.temp == 2)
+                                        {
+                                            <a asp-action="Edit" class="btn btn-secondary" asp-route-id="@item.EventoId">Editar</a>
+                                            <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.EventoId">Eliminar</a>
+                                            <a type="button" class="btn btn-dark" asp-controller="RegistroAsistencia" asp-action="LeerQR" asp-route-idEvento="@item.EventoId">Registrar Asistencia</a>
+                                            <a asp-action="ListaAsistentes" asp-controller="RegistroAsistencia" class=" btn btn-dark" asp-route-idEvento="@item.EventoId">Ver Lista de asistentes</a>
+                                        }
+
+                                        @if (ViewBag.temp == 3)
+                                        {
+                                            <a asp-action="Edit" class="btn btn-secondary" asp-route-id="@item.EventoId">Editar</a>
+                                            <a asp-action="Delete" class="btn btn-danger" asp-route-id="@item.EventoId">Eliminar</a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    
+                </div>
+                
+		    </div>
+	    </div>
+    </div>
+</body>
+</html>

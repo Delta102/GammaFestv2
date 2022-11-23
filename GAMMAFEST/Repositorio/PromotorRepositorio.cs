@@ -1,7 +1,8 @@
 ﻿using GAMMAFEST.Data;
 using GAMMAFEST.Helpers;
 using GAMMAFEST.Models;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace GAMMAFEST.Repositorio
 {
@@ -14,6 +15,7 @@ namespace GAMMAFEST.Repositorio
         int ConteoUser();
         UserPromotor ObtenerUserById(int? id);
         public UserPromotor GetLoggedUser();
+        int ConteoEventoByUserId(int id);
     }
     public class PromotorRepositorio: IPromotorRepositorio
     {
@@ -102,6 +104,11 @@ namespace GAMMAFEST.Repositorio
         public int ConteoUser() {
             return _context.UserPromotor.Count();
         }
+
+        public int ConteoEventoByUserId(int id) {
+            return _context.Evento.Where(u => u.IdUser == id).Count();
+        }
+
 
         public UserPromotor ObtenerInicio(string username)
         {

@@ -5,6 +5,7 @@ build_property.UsingMicrosoftNETSdkWeb = true
 build_property.ProjectTypeGuids = 
 build_property.InvariantGlobalization = 
 build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = GAMMAFEST
 build_property.RootNamespace = GAMMAFEST
@@ -63,8 +64,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvbW90b3JcTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/CICLO VIII/CALIDAD Y PRUEBAS DE SOFTWARE/PROYECTO FINAL/GAMMAFEST/GAMMAFEST/Views/Promotor/Perfil.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvbW90b3JcUGVyZmlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/CICLO VIII/CALIDAD Y PRUEBAS DE SOFTWARE/PROYECTO FINAL/GAMMAFEST/GAMMAFEST/Views/Promotor/RegistroPromotor.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvbW90b3JcUmVnaXN0cm9Qcm9tb3Rvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/CICLO VIII/CALIDAD Y PRUEBAS DE SOFTWARE/PROYECTO FINAL/GAMMAFEST/GAMMAFEST/Views/RegistroAsistencia/LeerQR.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0cm9Bc2lzdGVuY2lhXExlZXJRUi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/CICLO VIII/CALIDAD Y PRUEBAS DE SOFTWARE/PROYECTO FINAL/GAMMAFEST/GAMMAFEST/Views/RegistroAsistencia/ListaAsistentes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0cm9Bc2lzdGVuY2lhXExpc3RhQXNpc3RlbnRlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/CICLO VIII/CALIDAD Y PRUEBAS DE SOFTWARE/PROYECTO FINAL/GAMMAFEST/GAMMAFEST/Views/RegistroAsistencia/ListarAsistentes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0cm9Bc2lzdGVuY2lhXExpc3RhckFzaXN0ZW50ZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/CICLO VIII/CALIDAD Y PRUEBAS DE SOFTWARE/PROYECTO FINAL/GAMMAFEST/GAMMAFEST/Views/Shared/_ValidationScriptsPartial.cshtml]

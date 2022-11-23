@@ -88,8 +88,10 @@ namespace GAMMAFEST_TESTING.ControllersTesting
         {
             var view = controller.Login();
             var result = controller.Login("Usertest@user.pe", password);
+
             Assert.IsNotNull(view);
             Assert.That(controller.ViewData["MENSAJE"], Is.EqualTo(null));
+
             Assert.IsInstanceOf<Task<IActionResult>>(result);
         }
         [Test]
@@ -115,7 +117,7 @@ namespace GAMMAFEST_TESTING.ControllersTesting
             var view = controller.RegistroPromotor();
             Assert.IsNotNull(view);
         }
-
+ 
         [Test]
         public void ObtenerUsuarioLogueadoTest() {
             var mockClaimsPrincipal = new Mock<ClaimsPrincipal>();
