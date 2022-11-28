@@ -113,6 +113,7 @@ namespace GAMMAFEST.Controllers
             }
 
             ViewBag.usuarios = user;
+            ViewBag.evento = evento.NombreEvento;
 
             var registro = repositorio.ListarAsistentes(entrada);
 

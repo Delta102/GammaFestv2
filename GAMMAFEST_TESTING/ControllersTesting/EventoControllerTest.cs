@@ -211,9 +211,9 @@ namespace GAMMAFEST_TESTING.ControllersTesting
             var result = eRepositorio.ObtenerTodosEventosByUserIdPasados(1, 1);
             var result2 = eRepositorio.ObtenerTodosEventosByUserIdPasados(1, 2);
             var result3 = eRepositorio.ObtenerTodosEventosByUserIdPasados(1, 3);
-            Assert.That(result.Count, Is.EqualTo(2));
+            Assert.That(result.Count, Is.EqualTo(3));
             Assert.That(result2.Count, Is.EqualTo(0));
-            Assert.That(result3.Count, Is.EqualTo(1));
+            Assert.That(result3.Count, Is.EqualTo(0));
         }
     }
 }

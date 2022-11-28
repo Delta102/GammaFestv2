@@ -173,7 +173,7 @@
                                                         </h2>
                                                         <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                                             <div class="accordion-body">
-                                                                <a class="login100-form-btn" asp-controller="Evento"
+                                                                <a class="login100-form-btn" id="button1" asp-controller="Evento"
                                                                    asp-action="ListarEventos" asp-route-temp="1" asp-route-idUser="@ViewBag.idUser">VER MIS EVENTOS</a>
                                                             </div>
                                                         </div>
@@ -187,7 +187,7 @@
                                                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                                                             <div class="accordion-body">
                                                                 <a class="login100-form-btn" asp-controller="Evento"
-                                                               asp-action="ListarEventos" asp-route-temp="2" asp-route-idUser="@ViewBag.idUser">VER MIS EVENTOS</a>
+                                                               asp-action="ListarEventos" asp-route-temp="2" id="button2" asp-route-idUser="@ViewBag.idUser">VER MIS EVENTOS</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -201,7 +201,7 @@
                                                             <div class="accordion-body">
 
                                                                 <a class="login100-form-btn" asp-controller="Evento"
-                                                               asp-action="ListarEventos" asp-route-temp="3" asp-route-idUser="@ViewBag.idUser">VER MIS EVENTOS</a>
+                                                               asp-action="ListarEventos" asp-route-temp="3" id="button3" asp-route-idUser="@ViewBag.idUser">VER MIS EVENTOS</a>
 
                                                             </div>
                                                         </div>
@@ -218,6 +218,9 @@
                                 </div>
                                 </div>
                             }
+
+                            <a class="login100-form-btn" asp-controller="Home"
+                               asp-action="Index">Regresar</a>
                         </div>
                     </div>
                 </div>
